@@ -27,8 +27,8 @@ switch($message) {
     // Weather array.
     $pogoda = json_decode(file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $appid . '&id=' . $id . '&units=metric&lang=ru'), TRUE);
     // Temperature
-    if ($pogoda['main']['temp'] > 0) $temperature = '+' . sprintf("%u", $pogoda['main']['temp']);
-    else $temperature = sprintf("%u", $pogoda['main']['temp']);
+    if ($pogoda['main']['temp'] > 0) $temperature = '+' . sprintf("%d", $pogoda['main']['temp']);
+    else $temperature = sprintf("%d", $pogoda['main']['temp']);
     // Wind direcrion.
     if ($pogoda['wind']['deg'] >= 0 && $pogoda['wind']['deg'] <= 11.25) $wind_direction = 'северный';
     elseif ($pogoda['wind']['deg'] > 11.25 && $pogoda['wind']['deg'] <= 78.75) $wind_direction = 'северо-восточный, ';
