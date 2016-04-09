@@ -20,12 +20,12 @@ switch($message) {
   // @see http://api.openweathermap.org
   case '/pogoda':
     // App ID.
-    $appid = '<APP_ID_HERE>';
+    $apikey = '<APP_ID_HERE>';
     // Place (city) ID.
     // @example St.Petersburg, Russia.
     $id = '500776';
     // Weather array.
-    $pogoda = json_decode(file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $appid . '&id=' . $id . '&units=metric&lang=ru'), TRUE);
+    $pogoda = json_decode(file_get_contents('http://api.openweathermap.org/data/2.5/weather?appid=' . $apikey . '&id=' . $id . '&units=metric&lang=ru'), TRUE);
     // Temperature
     if ($pogoda['main']['temp'] > 0) $temperature = '+' . sprintf("%d", $pogoda['main']['temp']);
     else $temperature = sprintf("%d", $pogoda['main']['temp']);
