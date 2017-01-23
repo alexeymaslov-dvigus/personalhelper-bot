@@ -1,0 +1,249 @@
+FORMAT: 1A
+HOST: https://lk.vectoranalytics.ru/
+
+# vectoranalytics
+
+Описание API Вектора
+
+## init.php [/init.php]
+
+### Основной скрипт Вектора [GET]
+Запрос который приходит из браузера клиента
+
++ Request (application/json)
+
+        {
+            "ph": 74996498233,
+            "src": 1,
+            "ac": 1,
+            "cid": 3367511,
+            "sid": 5702182,
+            "aid": 193415,
+            "gclid": "3af69c5d4410be858554945a5ae941fe",
+            "google_cid": "878822566.1444994565",
+            "yandex_cid": "14630587861015199503",
+            "chaser_cid": 0,
+            "referrer": "",
+            "landing_page": "http://muravino.ru/",
+            "r": "1484918118575",
+            "callback": "CallbackRegistry.f026698512794595564"
+        }
+        
++ Response 200 (text/javascript)
+
+            CallbackRegistry.f026698512794595564({
+                "cid": 3367511,
+                "domain": "muravino.ru",
+                "js_replace": 1,
+                "leads": [],
+                "ph": 74996498233,
+                "promo": {},
+                "rr": 1,
+                "sid": 6112935,
+                "tpl": [],
+                "widget": {
+                    "id": 999,
+                    "is_display": true,
+                    "color": {"r": 255, "g": 255, "b": 255, "a": 1},
+                    "ui":{
+                        "button": {
+                          "position_bottom": 80,
+                          "position_right": 100,
+                          "text": "Оставьте заявку"
+                        },
+                        "form": {
+                          "description": "Оставьте свой номер и мы вам перезвоним",
+                          "control_text": "Позвоните мне"
+                        }
+                    },
+                    "settings": {
+                      "is_use_closing": true,
+                      "is_use_once": true,
+                      "is_use_timeout": true,
+                      "redirect_script_id": 9999,
+                      "timeout": 60
+                    }
+                }
+            })
+
+## Callback [/api/site/widget/callback/action.php]
+
+### Получить параметры раздела Оформление [GET /api/site/widget/callback/action.php?action=get_ui]
+
+Получаем настройки оформления виджета
+
++ Request (application/json)
+
+        {
+            "action": "get_ui",
+            "site_id": 15
+        }
++ Response 200 (application/json)
+
+        {   
+            "error": null,
+            "widget": {
+                "id": 999,
+                "color": {"r": 255, "g": 255, "b": 255, "a": 1},
+                "button": {
+                    "position_bottom": 80,
+                    "position_right": 100,
+                    "text": "Оставьте заявку"
+                },
+                "form": {
+                    "description": "Оставьте свой номер и мы вам перезвоним",
+                    "control_text": "Позвоните мне"
+                }
+            }
+        }
+        
+### Сохранить параметры раздела Оформление [GET /api/site/widget/callback/action.php?action=save_ui]
+
+Сохраняем настройки оформления виджета
+
++ Request (application/json)
+
+        {   
+            "action": "save_ui",
+            "site_id": 15,
+            "widget": {
+                "id": 999,
+                "color": {"r": 255, "g": 255, "b": 255, "a": 1},
+                "button": {
+                    "position_bottom": 80,
+                    "position_right": 100,
+                    "text": "Оставьте заявку"
+                },
+                "form": {
+                    "description": "Оставьте свой номер и мы вам перезвоним",
+                    "control_text": "Позвоните мне"
+                }
+            }
+        }
++ Response 200 (application/json)
+
+        {   
+            "error": null,
+            "widget": {
+                "id": 999,
+                "color": {"r": 255, "g": 255, "b": 255, "a": 1},
+                "button": {
+                    "position_bottom": 80,
+                    "position_right": 100,
+                    "text": "Оставьте заявку"
+                },
+                "form": {
+                    "description": "Оставьте свой номер и мы вам перезвоним",
+                    "control_text": "Позвоните мне"
+                }
+            }
+        }
+
+        
+### Получить параметры раздела Настройки [GET /api/site/widget/callback/action.php?action=get_settings]
+
+Получаем настройки показа виджета
+
++ Request (application/json)
+
+        {
+            "action": "get_settings",
+            "site_id": 15
+        }
+
++ Response 200 (application/json)
+
+        {
+            "error": null,
+            "widget":{
+                "id": 999,
+                "is_display": true,
+                "weekdays": [
+                    {"id": 1, "name": "Понедельник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 2, "name": "Вторник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 3, "name": "Среда", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 4, "name": "Четверг", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 5, "name": "Пятница", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 6, "name": "Суббота", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
+                ],
+                "is_use_closing": true,
+                "is_use_once": true,
+                "is_use_timeout": true,
+                "redirect_script_id": 9999,
+                "timeout": 60
+                }
+        }
+
+### Сохранить парметры раздела Настройки [GET /api/site/widget/callback/action.php?action=save_settings]
+
+Сохраняем настройки показа виджета
+
++ Request (application/json)
+
+        {
+            "action": "save_settings",
+            "site_id": 15,
+            "widget":{
+                "id": 999,
+                "is_display": true,
+                "weekdays": [
+                    {"id": 1, "name": "Понедельник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 2, "name": "Вторник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 3, "name": "Среда", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 4, "name": "Четверг", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 5, "name": "Пятница", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 6, "name": "Суббота", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
+                ],
+                "is_use_closing": true,
+                "is_use_once": true,
+                "is_use_timeout": true,
+                "redirect_script_id": 9999,
+                "timeout": 60
+                }
+        }
+
++ Response 200 (application/json)
+
+        {   
+            "error": null,
+            "widget":{
+                "id": 999,
+                "is_display": true,
+                "weekdays": [
+                    {"id": 1, "name": "Понедельник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 2, "name": "Вторник", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 3, "name": "Среда", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 4, "name": "Четверг", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 5, "name": "Пятница", "is_active": true, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 6, "name": "Суббота", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}},
+                    {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
+                ],
+                "is_use_closing": true,
+                "is_use_once": true,
+                "is_use_timeout": true,
+                "redirect_script_id": 9999,
+                "timeout": 60
+                }
+        }
+        
+### Вызов callback [GET /api/external/integrations/mtt/callback/action.php]
+
+Вызываем этот скрипт когда пользователь вводит номер телефона и нажимает "Позвонить мне"
+
++ Request (application/json)
+
+        {
+            "action": "send",
+            "aid": 123456,
+            "sid": 98765432,
+            "phone_int": 74951234567,
+            "callback": "CallbackRegistry.f026698512794595564"
+        }
+        
++ Response 200 (text/javascript)
+
+        CallbackRegistry.f026698512794595564({
+                "error": null
+            })
