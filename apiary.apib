@@ -5,9 +5,26 @@ HOST: https://lk.vectoranalytics.ru/
 
 Описание API Вектора
 
+## Template [/template.php]
+
+### Draft API [GET]
+
++ Request (application/json)
+
+        {
+            "action": "get"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+
+
 ## init.php [/init.php]
 
-### Основной скрипт Вектора [GET]
+### Main script Vector [GET]
 Запрос который приходит из браузера клиента
 
 + Request (application/json)
@@ -42,8 +59,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "sid": 6112935,
                 "tpl": [],
                 "widget": {
-                    "id": 999,
-                    "is_display": true,
+                    "is_display_on_site": true,
+                    "message": "",
                     "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                     "ui":{
                         "button": {
@@ -60,15 +77,109 @@ HOST: https://lk.vectoranalytics.ru/
                       "is_use_closing": true,
                       "is_use_once": true,
                       "is_use_timeout": true,
-                      "redirect_script_id": 9999,
                       "timeout": 60
                     }
                 }
             })
+            
+## Group phones [/api/channels/action.php]
+
+### Get list group phones [GET /api/channels/action.php?action=get]
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": "{site_id}"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "exceptions": {
+                "phones_count": 2,
+                "ips_count": 0
+            },
+            "channels": [{
+                "id": 733,
+                "name": "hq.com.ru - рекламная",
+                "state": 1,
+                "layout_id": 1301,
+                "is_on_site": 1, 
+                "is_static": 0,
+                "is_online": 1,
+                "ads": 1,
+                "ch_max_lifetime": 0,
+                "type_max_lifetime": 1321,
+                "site_max_lifetime": 1800,
+                "phones": [{
+                    "id": 2845,
+                    "phone": "+7(499) 648-66-76",
+                    "phone_int": 74996486676,
+                    "operator": "MTT",
+                    "phoneId":539
+                }],
+                "utms": [{
+                    "id": 757,
+                    "group_id": 0,
+                    "type": "соответствует регулярному выражению",
+                    "type_id": 5,
+                    "utm": "Посадочная страница(Landing page)",
+                    "field_type": "input",
+                    "utm_group_id": 1,
+                    "value": "utm_source",
+                    "utm_id": 10,
+                    "value_id":null
+                }],
+                "forwarding": {
+                    "phone": "+7(499) 648-66-90",
+                    "phone_int": 74996486690,
+                    "id": 2844,
+                    "mtt_id": 551,
+                    "type": "MTT"
+                },
+                "redirect_script_id": 223,
+                "utm_template": {
+                    "id": 786,
+                    "name": "Редактор правил"
+                },
+                "count_phones_add": 5
+            }]
+        }
+        
+## Redirect [/api/site/action.php]
+
+### Get list redirect script [GET /api/site/action.php?action=get_redirect_scripts]
+
++ Request (application/json)
+
+        {
+            "action": "get_redirect_scripts",
+            "get_channels": true,
+            "get_rules": true,
+            "site_id": 156
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_scripts": [
+                {
+                "id": 123,
+                "name": "Базовый сценарий",
+                "state": 1,
+                "channels":[],
+                "rules":[],
+                "is_use_for_widget": true
+                }
+            ]
+        }
 
 ## Callback [/api/site/widget/callback/action.php]
 
-### Получить параметры раздела Оформление [GET /api/site/widget/callback/action.php?action=get_ui]
+### Get UI settings [GET /api/site/widget/callback/action.php?action=get_ui]
 
 Получаем настройки оформления виджета
 
@@ -97,7 +208,7 @@ HOST: https://lk.vectoranalytics.ru/
             }
         }
         
-### Сохранить параметры раздела Оформление [GET /api/site/widget/callback/action.php?action=save_ui]
+### Save UI settings [GET /api/site/widget/callback/action.php?action=save_ui]
 
 Сохраняем настройки оформления виджета
 
@@ -140,7 +251,7 @@ HOST: https://lk.vectoranalytics.ru/
         }
 
         
-### Получить параметры раздела Настройки [GET /api/site/widget/callback/action.php?action=get_settings]
+### Get settings [GET /api/site/widget/callback/action.php?action=get_settings]
 
 Получаем настройки показа виджета
 
@@ -175,7 +286,7 @@ HOST: https://lk.vectoranalytics.ru/
                 }
         }
 
-### Сохранить парметры раздела Настройки [GET /api/site/widget/callback/action.php?action=save_settings]
+### Save settings [GET /api/site/widget/callback/action.php?action=save_settings]
 
 Сохраняем настройки показа виджета
 
@@ -228,7 +339,7 @@ HOST: https://lk.vectoranalytics.ru/
                 }
         }
         
-### Вызов callback [GET /api/external/integrations/mtt/callback/action.php]
+### Call callback [GET /api/external/integrations/mtt/callback/action.php]
 
 Вызываем этот скрипт когда пользователь вводит номер телефона и нажимает "Позвонить мне"
 
