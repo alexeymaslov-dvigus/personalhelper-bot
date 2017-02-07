@@ -48,7 +48,7 @@ HOST: https://lk.vectoranalytics.ru/
         
 + Response 200 (text/javascript)
 
-            CallbackRegistry.f026698512794595564({
+            {
                 "cid": 3367511,
                 "domain": "muravino.ru",
                 "js_replace": 1,
@@ -86,10 +86,14 @@ HOST: https://lk.vectoranalytics.ru/
                       "is_use_closing": true,
                       "is_use_once": true,
                       "is_use_timeout": true,
-                      "timeout": 60
+                      "timeout": 60,
+                      "weekdays":{
+                          "is_weekday": false,
+                          "weekday_next": "Понедельник с 9:00 до 18:00"
+                      }
                     }
                 }
-            })
+            }
             
 ## Group phones [/api/channels/action.php]
 
@@ -139,7 +143,7 @@ HOST: https://lk.vectoranalytics.ru/
                     "utm_group_id": 1,
                     "value": "utm_source",
                     "utm_id": 10,
-                    "value_id":null
+                    "value_id": null
                 }],
                 "forwarding": {
                     "phone": "+7(499) 648-66-90",
@@ -160,6 +164,8 @@ HOST: https://lk.vectoranalytics.ru/
 ## Redirect [/api/site/action.php]
 
 ### Get list redirect script [GET /api/site/action.php?action=get_redirect_scripts]
+
+Получаем список Сценариев перадресации
 
 + Request (application/json)
 
@@ -217,7 +223,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "brand_icon": "url/text",
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
-                    "countdown": 60
+                    "countdown": 60,
+                    "effect_id": 1731
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -250,7 +257,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "brand_icon": "url/text",
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
-                    "countdown": 60
+                    "countdown": 60,
+                    "effect_id": 1731
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -277,7 +285,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "brand_icon": "url/text",
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
-                    "countdown": 60
+                    "countdown": 60,
+                    "effect_id": 1731
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -318,7 +327,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "is_use_once": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
-                "timeout": 60
+                "timeout": 60,
+                "is_use_spamfilter": true
                 }
         }
 
@@ -347,7 +357,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "is_use_once": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
-                "timeout": 60
+                "timeout": 60,
+                "is_use_spamfilter": true
                 }
         }
 
@@ -371,7 +382,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "is_use_once": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
-                "timeout": 60
+                "timeout": 60,
+                "is_use_spamfilter": true
                 }
         }
         
@@ -391,6 +403,214 @@ HOST: https://lk.vectoranalytics.ru/
         
 + Response 200 (text/javascript)
 
-        CallbackRegistry.f026698512794595564({
-                "error": null
-            })
+        {
+            "error": null
+        }
+        
+## amoCRM [/api/amocrm/action.php]
+
+### Get settings  [GET /api/amocrm/action.php?action=get]
+
+Получаем настройки интеграции с amoCRM
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 89
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "amocrm":{
+                "id": 7,
+                "start_date": "12.07.2016",
+                "subdomain": "martinholland",
+                "user_hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                "user_login": "martin.dvigus@gmail.com",
+                "is_send_calls": false,
+                "is_send_leads": false,
+                "is_send_cbs": false
+            }
+        }
+        
+### Save settings  [GET /api/amocrm/action.php?action=save]
+
+Сохраняем настройки интеграции с amoCRM
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 89,
+            "subdomain": "martinholland",
+            "user_hash": "d9bbcef1196ccddeaf521f7457201f2d",
+            "user_login": "martin.dvigus@gmail.com",
+            "is_send_calls": false,
+            "is_send_leads": false,
+            "is_send_cbs": false
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "amocrm":{
+                "id": 7,
+                "start_date": "12.07.2016",
+                "subdomain": "martinholland",
+                "user_hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                "user_login": "martin.dvigus@gmail.com",
+                "is_send_calls": false,
+                "is_send_leads": false,
+                "is_send_cbs": false
+            }
+        }
+        
+## Payment [/api/amo/tariff/action.php]
+
+### Get tariff info [GET /api/amo/tariff/action.php?action=get_by_site]
+
+Получаем информацию по тарифу для сайта
+
++ Request (application/json)
+
+        {
+            "action": "get_by_site",
+            "site_id": 315
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "plan": null,
+            "tariff":{
+                "license":{
+                    "base":{
+                        "month_cost": 1000
+                    },
+                    "phones":{
+                        "cost": 0,
+                        "count": 1,
+                        "month_cost": 0
+                    },
+                    "monthcost": 1000
+                },
+                "communication_services":{
+                    "free_minutes":{
+                        "cost_per_over_limit": 3,
+                        "limit": 1000,
+                        "over_limit": 1001
+                    },
+                    "phone_495":{
+                        "cost": 500,
+                        "count": 0,
+                        "month_cost": 0
+                    },
+                    "phone_499":{
+                        "cost": 400,
+                        "count": 1,
+                        "month_cost": 400
+                    },
+                    "phone_800":{
+                        "cost": 1400,
+                        "count": 0,
+                        "month_cost": 0
+                    },
+                    "month_cost": 400
+                },
+                "extra_services":{
+                    "deal_procesing":{
+                        "cost": 6000,
+                        "state": false,
+                        "month_cost": 0
+                    },
+                    "callback":{
+                        "fix_russia": 1.99,
+                        "mobile_russia": 2.99,
+                        "fix_msk_spb": 1.15
+                    },
+                    "month_cost": 0
+                },
+                "month_cost": 1400
+            }
+        }
+        
+## Notifications [/api/user/notifications/action.php]
+
+### Get notifications config [GET /api/user/notifications/action.php?action=get]
+
+Получаем конфигурацию уведомлений для всех сайтов
+
++ Request (application/json)
+
+        {
+            "action": "get"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sites":[
+                {
+                "id": 16,
+                "name": "www.dommill.ru",
+                "description": "Квартал Миллениум",
+                "owner_id": 155,
+                "notifications":[
+                    {
+                    "id": 15,
+                    "channel_id": 971,
+                    "type_id": 982
+                    }
+                ]
+                }   
+            ]
+        }
+        
+### Add notification [GET /api/user/notifications/action.php?action=add]
+
+Добавляем уведомление
+
++ Request (application/json)
+
+        {
+            "action": "add",
+            "site_id": 16,
+            "notification": {
+                "channel_id": 972,
+                "type_id": 981
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "notification": {
+                "id": 16,
+                "channel_id": 972,
+                "type_id": 981
+            }
+        }
+        
+### Remove notification [GET /api/user/notifications/action.php?action=remove]
+
+Удаляем уведомление
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+             "notification_id": 16
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
