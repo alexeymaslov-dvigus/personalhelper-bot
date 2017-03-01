@@ -75,7 +75,8 @@ HOST: https://lk.vectoranalytics.ru/
                             "brand_icon": "url/text",
                             "is_display_brand_icon": false,
                             "is_display_countdown": false,
-                            "countdown": 60
+                            "countdown": 60,
+                            "is_show_vector_logo": true
                         }, 
                         "background": {
                             "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -84,7 +85,8 @@ HOST: https://lk.vectoranalytics.ru/
                     },
                     "settings": {
                       "is_use_closing": true,
-                      "is_use_once": true,
+                      "is_use_once_day": true,
+                      "is_use_once_session": true,
                       "is_use_timeout": true,
                       "timeout": 60,
                       "weekdays":{
@@ -224,7 +226,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
                     "countdown": 60,
-                    "effect_id": 1731
+                    "effect_id": 1731,
+                    "is_show_vector_logo": true
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -258,7 +261,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
                     "countdown": 60,
-                    "effect_id": 1731
+                    "effect_id": 1731,
+                    "is_show_vector_logo": true
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -286,7 +290,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_brand_icon": false,
                     "is_display_countdown": false,
                     "countdown": 60,
-                    "effect_id": 1731
+                    "effect_id": 1731,
+                    "is_show_vector_logo": true
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -324,11 +329,12 @@ HOST: https://lk.vectoranalytics.ru/
                     {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
                 ],
                 "is_use_closing": true,
-                "is_use_once": true,
+                "is_use_once_day": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
                 "timeout": 60,
-                "is_use_spamfilter": true
+                "is_use_spamfilter": true,
+                "is_use_once_session": true
                 }
         }
 
@@ -354,11 +360,12 @@ HOST: https://lk.vectoranalytics.ru/
                     {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
                 ],
                 "is_use_closing": true,
-                "is_use_once": true,
+                "is_use_once_day": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
                 "timeout": 60,
-                "is_use_spamfilter": true
+                "is_use_spamfilter": true,
+                "is_use_once_session": true
                 }
         }
 
@@ -379,11 +386,12 @@ HOST: https://lk.vectoranalytics.ru/
                     {"id": 7, "name": "Воскресенье", "is_active": false, "interval": {"from": "09:00", "to": "18:00"}}
                 ],
                 "is_use_closing": true,
-                "is_use_once": true,
+                "is_use_once_day": true,
                 "is_use_timeout": true,
                 "redirect_script_id": 9999,
                 "timeout": 60,
-                "is_use_spamfilter": true
+                "is_use_spamfilter": true,
+                "is_use_once_session": true
                 }
         }
         
@@ -606,8 +614,9 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "action": "remove",
-             "notification": {
-                id: 16
+            "site_id": 16,
+            "notification": {
+                "id": 16
              }
         }
         
@@ -615,4 +624,146 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null
+        }
+        
+## Exceptions [/api/ip/action.php]
+
+### Get IP exceptions list [GET /api/ip/action.php?action=get]
+
+Получить список исключённых ip-адресов
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 321
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "ips":[
+                {
+                "id": 7370,
+                "ip": "111.111.111.111",
+                "type_id": 201
+                },{
+                "id": 7369,
+                "ip": "5.134.220.54",
+                "type_id": 201
+                }
+            ],
+            "own_ip": "5.134.220.54",
+            "is_auto_exception": false
+        }
+        
+### Remove IP from exceptions [GET /api/ip/action.php?action=remove]
+
+Получить список исключённых ip-адресов
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "id": 7370,
+            "site_id": 321
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Add IP exception [GET /api/ip/action.php?action=create]
+
+Добавление ip-адреса в исключение
+
++ Request (application/json)
+
+        {
+            "action": "create",
+            "site_id": 321,
+            "ip": "5.134.220.54"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "ips":[
+                {
+                "id": 7370,
+                "ip": "5.134.220.54",
+                "type_id": 201
+                }
+            ],
+            "own_ip": "5.134.220.54"
+        }
+        
+### Enable-Disable auto exception [GET /api/ip/action.php?action=auto_exception]
+
+Включение/Отключение умной фильтрации по IP
+
++ Request (application/json)
+
+        {
+            "action": "auto_exception",
+            "site_id": 321,
+            "is_auto_exception": true
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "is_auto_exception": true
+        }
+        
+## Analytics [/api/reports/visualize.php]
+
+### Get report data [GET api/report/visualize.php]
+
++ Request (application/json)
+
+        {
+            "add_attr_mode": 0,
+            "add_group_by": 1,
+            "attr_model": 5001,
+            "filters": [],
+            "from": "01.02.2017",
+            "group_by": 30104,
+            "is_default": 1,
+            "report_type": 0,
+            "report_type_id": 19,
+            "selected_columns": [],
+            "selected_metrics": [],
+            "selected_rows": [],
+            "set_top_rows": 1,
+            "site_id": 156,
+            "sort_by": null,
+            "to": "28.02.2017",
+            "user_report_id": 0,
+            "magic_string": ""
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "all_rows": [],
+            "attr_model": 5001,
+            "chart_data": [],
+            "filters": [],
+            "from": "01.02.2017",
+            "group_by": 30104,
+            "max_y_axis": 0,
+            "selected_columns": [],
+            "selected_metrics": [],
+            "start_date": "24.06.2016",
+            "to": "28.02.2017",
+            "user_report_id": 12120,
+            "x_axis": [],
+            "magic_string": ""
         }
