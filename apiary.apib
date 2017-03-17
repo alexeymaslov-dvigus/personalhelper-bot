@@ -101,6 +101,8 @@ HOST: https://lk.vectoranalytics.ru/
 
 ### Get list group phones [GET /api/channels/action.php?action=get]
 
+Получение списка Групп телефонов
+
 + Request (application/json)
 
         {
@@ -531,10 +533,29 @@ HOST: https://lk.vectoranalytics.ru/
                     "month_cost": 400
                 },
                 "extra_services":{
-                    "deal_procesing":{
-                        "cost": 6000,
-                        "state": false,
-                        "month_cost": 0
+                    "deal_processing":{
+                        "config_id": 1234,
+                        "options": 
+                        [
+                            {
+                                "id": 761,
+                                "name": "Выключено",
+                                "is_active": true,
+                                "cost": 0
+                            },
+                            {
+                                "id": 762,
+                                "name": "Только категория",
+                                "is_active": false,
+                                "cost": 10
+                            },
+                            {
+                                "id": 763,
+                                "name": "Полная обработка",
+                                "is_active": false,
+                                "cost": 20
+                            }
+                        ]
                     },
                     "callback":{
                         "fix_russia": 1.99,
@@ -723,47 +744,211 @@ HOST: https://lk.vectoranalytics.ru/
         
 ## Analytics [/api/reports/visualize.php]
 
-### Get report data [GET api/report/visualize.php]
+### Get report data [GET /api/report/visualize.php]
+
+Получение данных для отчёта
+
 
 + Request (application/json)
 
         {
-            "add_attr_mode": 0,
-            "add_group_by": 1,
-            "attr_model": 5001,
-            "filters": [],
-            "from": "01.02.2017",
-            "group_by": 30104,
-            "is_default": 1,
-            "report_type": 0,
+            "download_type": 0,
             "report_type_id": 19,
-            "selected_columns": [],
-            "selected_metrics": [],
+            "selected_columns": [
+                {
+                    "id": 34,
+                    "name": "Тип трафика",
+                    "is_required": false
+                }
+            ],
+            "selected_metrics": [
+                {
+                    "id": 92,
+                    "is_percent_view": false,
+                    "is_required": false,
+                    "is_sum": true,
+                    "is_active": true,
+                    "name": "Все обращения"
+                },
+                {
+                    "id": 93,
+                    "is_percent_view": true,
+                    "is_required": false,
+                    "is_sum": true,
+                    "is_active": true,
+                    "name": "Целевые обращения"
+                }
+            ],
             "selected_rows": [],
-            "set_top_rows": 1,
             "site_id": 156,
-            "sort_by": null,
-            "to": "28.02.2017",
+            "dates":{
+                "to": "28.02.2017",
+                "from": "01.02.2017"
+            },
             "user_report_id": 0,
-            "magic_string": ""
+            "magic_string": "",
+            "settings": {
+                "set_top_rows": true,
+                "attr_model": 5001,
+                "group_by": 30104,
+                "is_default": true
+            },
+            "plot_option":{
+                "type": "spline"
+            }
         }
         
 + Response 200 (text/javascript)
 
         {
             "error": null,
-            "all_rows": [],
-            "attr_model": 5001,
+            "all_rows": [
+                {
+                    "code": "0_0_0",
+                    "col1": "Всего",
+                    "col1_id": 0,
+                    "col2": "",
+                    "col2_id": 0,
+                    "col3": "",
+                    "col3_id": 0,
+                    "is_select": 0,
+                    "level_id": 1,
+                    "max_value": 4.9680,
+                    "name": "Всего",
+                    "name_full": "Всего",
+                    "p_code": null,
+                    "plot_option":{
+                        "type": "spline"
+                    },
+                    "total1": "295.0",
+                    "total2": "133.0",
+                    "total3": "4.9",
+                    "values": [
+                        {
+                            "abs": "295.0",
+                            "percent": "100"
+                        },
+                        {
+                            "abs": "133.0",
+                            "percent": "100"
+                        },
+                        {
+                            "abs": "4.9",
+                            "percent": "100"
+                        }
+                    ],
+                    "user_report_id": 12157
+                    
+                }
+            ],
             "chart_data": [],
-            "filters": [],
-            "from": "01.02.2017",
-            "group_by": 30104,
-            "max_y_axis": 0,
-            "selected_columns": [],
-            "selected_metrics": [],
-            "start_date": "24.06.2016",
-            "to": "28.02.2017",
+            
+            "selected_columns": [
+                {
+                    "id": 34,
+                    "name": "Тип трафика"
+                }
+            ],
+            "selected_metrics": [
+                {
+                    "id": 92,
+                    "agg_type": "sum",
+                    "is_active": false,
+                    "name": "Все обращения",
+                    "value_for_table": "round({%VALUE%},1)",
+                    "is_percent_view": true
+                    
+                }
+            ],
             "user_report_id": 12120,
-            "x_axis": [],
-            "magic_string": ""
+            "magic_string": "",
+            "dates":{
+                "to": "28.02.2017",
+                "from": "01.02.2017",
+                "start_date": "24.06.2016"
+            },
+            "settings": {
+                "is_set_top_rows": true,
+                "is_add_attr_mode": false,
+                "attr_model": 5001,
+                "group_by": 30104,
+                "is_default": true
+            },
+            "plot_option":{
+                "type": "spline",
+                "x_axis": [],
+                "max_y_axis": 0
+            }
+        }
+
+        
+## Integrations [/api/integrations/action.php]
+
+### Get integrations list [GET /api/external/integrations/action.php/action=get]
+
+Получаем список интеграции
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 89
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "integrations":[
+                {
+                    "id": 7,
+                    "type_id": 1622,
+                    "subdomain": "martinholland",
+                    "hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                    "login": "martin.dvigus@gmail.com",
+                    "is_send_calls": false,
+                    "is_send_leads": false,
+                    "is_send_cbs": false,
+                    "state": true
+                }
+            ]
+        }
+        
+### Save integration  [GET /api/external/integrations/action.php/action=save]
+
+Создаём или Сохраняем настройки интеграции
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 89,
+            "integration":{
+                    "id": 7,
+                    "type_id": 1622,
+                    "subdomain": "martinholland",
+                    "hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                    "login": "martin.dvigus@gmail.com",
+                    "is_send_calls": false,
+                    "is_send_leads": false,
+                    "is_send_cbs": false,
+                    "state": true
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "integration":{
+                    "id": 7,
+                    "type_id": 1622,
+                    "subdomain": "martinholland",
+                    "hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                    "login": "martin.dvigus@gmail.com",
+                    "is_send_calls": false,
+                    "is_send_leads": false,
+                    "is_send_cbs": false,
+                    "state": true
+            }
         }
