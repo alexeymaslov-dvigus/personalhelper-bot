@@ -114,10 +114,6 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null,
-            "exceptions": {
-                "phones_count": 2,
-                "ips_count": 0
-            },
             "channels": [{
                 "id": 733,
                 "name": "hq.com.ru - рекламная",
@@ -130,39 +126,82 @@ HOST: https://lk.vectoranalytics.ru/
                 "ch_max_lifetime": 0,
                 "type_max_lifetime": 1321,
                 "site_max_lifetime": 1800,
-                "phones": [{
-                    "id": 2845,
-                    "phone": "+7(499) 648-66-76",
-                    "phone_int": 74996486676,
-                    "operator": "MTT",
-                    "phoneId":539
-                }],
-                "utms": [{
-                    "id": 757,
-                    "group_id": 0,
-                    "type": "соответствует регулярному выражению",
-                    "type_id": 5,
-                    "utm": "Посадочная страница(Landing page)",
-                    "field_type": "input",
-                    "utm_group_id": 1,
-                    "value": "utm_source",
-                    "utm_id": 10,
-                    "value_id": null
-                }],
-                "forwarding": {
-                    "phone": "+7(499) 648-66-90",
-                    "phone_int": 74996486690,
-                    "id": 2844,
-                    "mtt_id": 551,
-                    "type": "MTT"
-                },
                 "redirect_script_id": 223,
-                "utm_template": {
-                    "id": 786,
-                    "name": "Редактор правил"
-                },
+                "count_phones": 4,
                 "count_phones_add": 5
             }]
+        }
+        
+### Get group phones info [GET /api/channels/action.php?action=get&channel_id=]
+
+Получение информации по одной Группе телефонов
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": "{site_id}",
+            "channel_id": "{channel_id}"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "channels": [
+                {
+                    "id": 733,
+                    "name": "hq.com.ru - рекламная",
+                    "state": 1,
+                    "layout_id": 1301,
+                    "is_on_site": 1, 
+                    "is_static": 0,
+                    "is_online": 1,
+                    "ads": 1,
+                    "ch_max_lifetime": 0,
+                    "type_max_lifetime": 1321,
+                    "site_max_lifetime": 1800,
+                    "redirect_script_id": 223,
+                    "count_phones": 4,
+                    "count_phones_add": 5
+                    "exceptions": {
+                        "phones_count": 2,
+                        "ips_count": 0
+                    },
+                    "phones": [{
+                        "id": 2845,
+                        "phone": "+7(499) 648-66-76",
+                        "phone_int": 74996486676
+                    }],
+                    "utm_template": {
+                        "id": 786,
+                        "name": "Редактор правил"
+                        },
+                    "utms": [{
+                        "id": 757,
+                        "group_id": 0,
+                        "type": "соответствует регулярному выражению",
+                        "type_id": 5,
+                        "utm": "Посадочная страница(Landing page)",
+                        "field_type": "input",
+                        "utm_group_id": 1,
+                        "value": "utm_source",
+                        "utm_id": 10,
+                        "value_id": null
+                    }],
+                    "forwarding": {
+                        "phone": "+7(499) 648-66-90",
+                        "phone_int": 74996486690,
+                        "id": 2844,
+                        "mtt_id": 551
+                    },
+                    
+                    "utm_template": {
+                        "id": 786,
+                        "name": "Редактор правил"
+                    }
+                }
+            ]
         }
         
 ## Redirect [/api/site/action.php]
@@ -175,8 +214,6 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "action": "get_redirect_scripts",
-            "get_channels": true,
-            "get_rules": true,
             "site_id": 156
         }
         
@@ -189,9 +226,37 @@ HOST: https://lk.vectoranalytics.ru/
                 "id": 123,
                 "name": "Базовый сценарий",
                 "state": 1,
-                "channels":[],
-                "rules":[],
+                "count_channels":5,
                 "is_use_for_widget": true
+                }
+            ]
+        }
+        
+### Get redirect script info [GET /api/site/action.php?action=get_redirect_scripts&redirect_script_id=]
+
+Получаем информацию по одному Сценарию перадресации
+
++ Request (application/json)
+
+        {
+            "action": "get_redirect_scripts",
+            "site_id": 156,
+            "redirect_script_id": 123
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_scripts": [
+                {
+                "id": 123,
+                "name": "Базовый сценарий",
+                "state": 1,
+                "count_channels":5,
+                "is_use_for_widget": true,
+                "channels":[],
+                "rules":[]
                 }
             ]
         }
@@ -409,6 +474,24 @@ HOST: https://lk.vectoranalytics.ru/
             "sid": 98765432,
             "phone_int": 74951234567,
             "callback": "CallbackRegistry.f026698512794595564"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Call callback from Deals [GET /api/external/integrations/mtt/callback/action.php?action=send_callback_from_deals]
+
+Делаем коллбэк со страницы Обращения
+
++ Request (application/json)
+
+        {
+            "action": "send_callback_from_deals",
+            "phone_int": 74951234567,
+            "site_redirect_script_id": 1413
         }
         
 + Response 200 (text/javascript)
@@ -744,6 +827,62 @@ HOST: https://lk.vectoranalytics.ru/
         
 ## Analytics [/api/reports/visualize.php]
 
+### Get reports list [GET /api/reports/types/action.php]
+
+Получаем список отчётов
+
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "visual": true,
+            "extra_data": true
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "types": [
+                {
+                    "id": 26,
+                    "name": "Эффективность рекламных каналов",
+                    "is_add_attr_model": true,
+                    "is_add_group_by": true,
+                    "is_source_data": true,
+                    "is_total_row_value": true,
+                    "columns": [
+                    ],
+                    "metrics": [
+                    ],
+                    "default_settings": {
+                        "date_interval": 8,
+                        "encoding": 1592,
+                        "format": 1581,
+                        "graph_type": "spline",
+                        "group_by": 30104
+                    },
+                    "report_group_type_id": 1601,
+                    "x_axis_name": "",
+                    "report_periods": [
+                        {
+                            "id": 30101,
+                            "name": "по дням"
+                        },
+                        {
+                            "id": 30102,
+                            "name": "по месяцам"
+                        },
+                        {
+                            "id": 30104,
+                            "name": "по неделям"
+                        }
+                    ]
+                }
+            ]
+        }
+
 ### Get report data [GET /api/report/visualize.php]
 
 Получение данных для отчёта
@@ -811,18 +950,12 @@ HOST: https://lk.vectoranalytics.ru/
                     "col2_id": 0,
                     "col3": "",
                     "col3_id": 0,
-                    "is_select": 0,
+                    "is_select": false,
                     "level_id": 1,
                     "max_value": 4.9680,
                     "name": "Всего",
                     "name_full": "Всего",
                     "p_code": null,
-                    "plot_option":{
-                        "type": "spline"
-                    },
-                    "total1": "295.0",
-                    "total2": "133.0",
-                    "total3": "4.9",
                     "values": [
                         {
                             "abs": "295.0",
@@ -836,13 +969,10 @@ HOST: https://lk.vectoranalytics.ru/
                             "abs": "4.9",
                             "percent": "100"
                         }
-                    ],
-                    "user_report_id": 12157
-                    
+                    ]
                 }
             ],
             "chart_data": [],
-            
             "selected_columns": [
                 {
                     "id": 34,
@@ -869,10 +999,8 @@ HOST: https://lk.vectoranalytics.ru/
             },
             "settings": {
                 "is_set_top_rows": true,
-                "is_add_attr_mode": false,
                 "attr_model": 5001,
-                "group_by": 30104,
-                "is_default": true
+                "group_by": 30104
             },
             "plot_option":{
                 "type": "spline",
@@ -951,4 +1079,280 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_send_cbs": false,
                     "state": true
             }
+        }
+        
+        
+## Agreements [/api/user/agreement/action.php]
+
+### Get agreements list [GET /api/user/agreement/action.php?action=get]
+
+Получаем список договоров
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 321
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "agreements":[
+                {
+                    "id": 7,
+                    "type_id": 5501,
+                    "is_paper": false,
+                    "document": "agreement_text",
+                    "state": true,
+                    "code": "VECTOR 1/163",
+                    "dates":{
+                        "to": "28.02.2017",
+                        "from": "01.02.2017"
+                    }
+                }
+            ]
+        }
+        
+### Download agreement  [GET /api/pdf/action.php?action=download_agreement]
+
+Скачать pdf договора
+
++ Request (application/json)
+
+        {
+            "action": "download_agreement",
+            "id": 5
+        }
+        
++ Response 200 (application/pdf)
+
+
+        
+## Admin. Projects [/api/site/action.php?action=get_for_accountant]
+
+### Get projects list [GET /api/site/action.php?action=get_for_accountant]
+
+Получаем список Проектов
+
++ Request (application/json)
+
+        {
+            "action": "get_for_accountant",
+            "magic_string": "",
+            "limit": 25
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sites":[
+                {
+                    "access": 0,
+                    "balance": -11423,
+                    "branch_id": 1051,
+                    "code": 174502,
+                    "deals": {
+                        "new": 14, 
+                        "total": 14, 
+                        "objective": 0
+                        },
+                    "description": "Тестовый сервер Леха не правь пока!!!",
+                    "discount": 0,
+                    "id": 2,
+                    "is_favorite": 0,
+                    "month_credit": 1127,
+                    "name": "smtr2.dvigus.bget.ru",
+                    "new_deals": 14,
+                    "owner_id": 5,
+                    "phone": 74959840823,
+                    "role": null,
+                    "state": {
+                        "id": 601, 
+                        "name": "Активен"
+                        },
+                    "theme_id": 5402,
+                    "url": "http://smtr2.dvigus.bget.ru"
+                }
+            ]
+        }
+        
+### Get project info [GET /api/site/action.php?action=get_for_accountant&site_id=]
+
+Получаем информацию по конкретному проекту
+
++ Request (application/json)
+
+        {
+            "action": "get_for_accountant",
+            "magic_string": "",
+            "limit": 25,
+            "site_id": 2
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sites": [
+                {
+                "access": 0,
+                "balance": -11423,
+                "branch_id": 1051,
+                "code": 174502,
+                "deals": {
+                    "new": 14, 
+                    "total": 14, 
+                    "objective": 0
+                    },
+                "description": "Тестовый сервер Леха не правь пока!!!",
+                "discount": 0,
+                "id": 2,
+                "is_favorite": 0,
+                "month_credit": 1127,
+                "name": "smtr2.dvigus.bget.ru",
+                "new_deals": 14,
+                "owner_id": 5,
+                "phone": 74959840823,
+                "role": null,
+                "state": {
+                    "id": 601, 
+                    "name": "Активен"
+                    },
+                "theme_id": 5402,
+                "url": "http://smtr2.dvigus.bget.ru"
+                }
+            ]
+        }
+        
+### Get permissions list [GET /api/user/permissions/action.php?action=get_for_accountant]
+
+Получаем информацию по доступам к конкретному проекту
+
++ Request (application/json)
+
+        {
+            "action": "get_for_accountant",
+            "site_id": 2
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "accesses": [
+                {
+                    "id": 2521,
+                    "rank": 1,
+                    "permission_id": 1013,
+                    "user": {
+                        "email": "alexey.maslov@dvigus.ru",
+                        "is_invited": true,
+                        "is_owner": false,
+                        "name": "Маслов А.В.",
+                        "phone": "+7 963 978 58 97"
+                    }
+                }
+            ]
+        }
+        
+## User permissions [/api/users/permissions/action.php]
+
+### Get user permissions list [GET /api/users/permissions/action.php?action=get]
+Получаем список пользователей
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 321
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "current_user_permission": {
+                "id": 2521,
+                "rank": 1,
+                "permission_id": 13,
+                "user": {
+                    "email": "alexey.maslov@dvigus.ru",
+                    "is_invited": true
+                }
+            },
+            "accesses": [
+                {
+                    "id": 2521,
+                    "permission_id": 1013,
+                    "rank": 1,
+                    "user": {
+                        "email": "alexey.maslov@dvigus.ru",
+                        "is_invited": true,
+                        "is_owner": false,
+                        "name": "Маслов А.В.",
+                        "phone": "+7 963 978 58 97"
+                    }
+                }
+            ]
+        }
+        
+### Add/Update user permission [GET /api/users/permissions/action.php?action=create]
+Добавляем пользователя к проекту / меняем пользователя
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 321,
+            "access": {
+                "id": 3015,
+                "permission_id": 1013,
+                "rank": 1,
+                "user": {
+                    "email": "alexey.maslov@dvigus.ru",
+                    "is_invited": true,
+                    "is_owner": false,
+                    "name": "Маслов А.В.",
+                    "phone": "+7 963 978 58 97"
+                }
+            },
+            "is_notify_user": true
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "access": {
+                "id": 2521,
+                "permission_id": 1011,
+                "rank": 1,
+                "user": {
+                    "email": "alexey.maslov@dvigus.ru",
+                    "is_invited": true,
+                    "is_owner": false,
+                    "name": "Маслов А.В.",
+                    "phone": "+7 963 978 58 97"
+                }
+            }
+        }
+        
+### Remove user permission [GET /api/users/permissions/action.php?action=remove]
+Удаляем пользователя из проекта
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 321,
+            "access_id": 3304
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
         }
