@@ -30,7 +30,6 @@ HOST: https://lk.vectoranalytics.ru/
 + Request (application/json)
 
         {
-            "ph": 74996498233,
             "src": 1,
             "ac": 1,
             "cid": 3367511,
@@ -43,7 +42,8 @@ HOST: https://lk.vectoranalytics.ru/
             "referrer": "",
             "landing_page": "http://muravino.ru/",
             "r": "1484918118575",
-            "callback": "CallbackRegistry.f026698512794595564"
+            "callback": "CallbackRegistry.f026698512794595564",
+            "tab": "a:1:top:0:x:600:y:726"
         }
         
 + Response 200 (text/javascript)
@@ -96,6 +96,129 @@ HOST: https://lk.vectoranalytics.ru/
                     }
                 }
             }
+            
+## Deals [/api/site/deals/action.php]
+
+### Get deals list [GET /api/site/deals/action.php?action=get]
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 261,
+            "filters": {
+                "categories": [],
+                "client_numbers": [],
+                "comment": null,
+                "dates": {
+                    "from": "05.04.2017",
+                    "to": "27.04.2017"
+                },
+                "deal_ids": [],
+                "deal_type_id": 358,
+                "deal_values": [],
+                "event_types": [],
+                "is_my_deals": false,
+                "magic_string": "",
+                "missed": [],
+                "pagination": {
+                    "count_rows": 50,
+                    "page_number": 1
+                },
+                "phones": [],
+                "repeated": [],
+                "tags": null,
+                "utms": []
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "calls":[
+                {
+                    "abonent_phone": "79639785897",
+                    "ad_channels": null,
+                    "audio": {},
+                    "category_id": 460,
+                    "channel_name": "студио12-KR Propert-topnovostr",
+                    "city": "",
+                    "client_email": "",
+                    "client_name": "",
+                    "client_phone": "",
+                    "comment": "",
+                    "date": "2017-04-27 19:41:49",
+                    "deal_days_gap": 0,
+                    "deal_processing": {
+                        "id": 763,
+                        "name": "Полная обработка"
+                    },
+                    "duration": "00:02:40",
+                    "type": {
+                        "id": 661,
+                        "name": "Звонок"
+                    },
+                    "gender": 0,
+                    "id": 128964,
+                    "ip": null,
+                    "is_delay": false,
+                    "is_manual": 0,
+                    "is_missed": 0,
+                    "is_repeated": 1,
+                    "is_result": false,
+                    "is_spam": 0,
+                    "is_save": true,
+                    "keyword": null,
+                    "landing_page": "",
+                    "manager_name": "",
+                    "manager_value": null,
+                    "promo": "",
+                    "provider": {
+                        "id": 384,
+                        "name": "Вектор"
+                    },
+                    "referrer": "",
+                    "setup_time_ms": 4246,
+                    "site_id": 261,
+                    "system_operator_id": 63,
+                    "tag_str":  "",
+                    "tags": [
+                    ],
+                    "trigger": null,
+                    "utm_campaign": "",
+                    "utm_content": "",
+                    "utm_medium": "",
+                    "utm_source": "",
+                    "utm_term": "",
+                    "value": 0,
+                    "virtual_phone": "74996495086"
+                    }
+            ],
+            "count": "1059",
+            "deal_type_id": 358,
+            "managers": [
+                {
+                    "site_id": 261,
+                    "values": []
+                }
+            ],
+            "pagination": {
+                "begin_page": 1,
+                "count_pages": 22,
+                "current_page": 1,
+                "end_page": 22,
+                "first_page": 0,
+                "last_page": 0,
+                "max_shown_pages": 31
+            },
+            "tags": [
+                {
+                    "site_id": 261,
+                    "values": []
+                }
+            ]
+        }
             
 ## Group phones [/api/channels/action.php]
 
@@ -462,7 +585,7 @@ HOST: https://lk.vectoranalytics.ru/
                 }
         }
         
-### Call callback [GET /api/external/integrations/mtt/callback/action.php]
+### Call callback [GET /api/external/integrations/mtt/callback/action.php?action=send]
 
 Вызываем этот скрипт когда пользователь вводит номер телефона и нажимает "Позвонить мне"
 
@@ -491,6 +614,7 @@ HOST: https://lk.vectoranalytics.ru/
         {
             "action": "send_callback_from_deals",
             "phone_int": 74951234567,
+            "site_id": 62,
             "site_redirect_script_id": 1413
         }
         
@@ -673,6 +797,7 @@ HOST: https://lk.vectoranalytics.ru/
                 "name": "www.dommill.ru",
                 "description": "Квартал Миллениум",
                 "owner_id": 155,
+                "access": 1013,
                 "notifications":[
                     {
                     "id": 15,
@@ -1355,4 +1480,104 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null
+        }
+        
+## VectorPromocode [/api/promocode/action.php]
+
+### Get promocodes [GET /api/promocode/action.php?action=get]
+Получаем список промокодов
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "filters":{
+                "user_id": 5,
+                "name": "VECTORAWESOME",
+                "dates":{
+                    "to": "28.02.2017",
+                    "from": "01.02.2017"
+                }
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "promocodes": [
+                {
+                    "id": 23,
+                    "name": "VECTORAWESOME",
+                    "user_id": 5,
+                    "dates":{
+                        "to": "28.02.2017",
+                        "from": "01.02.2017"
+                    },
+                    "duration": 14,
+                    "value": 1000
+                }
+            ]
+        }
+        
+### Generate & Save promocode [GET /api/promocode/action.php?action=save]
+Генерируем и сохраняем промокод
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "promocode": {
+                "user_id": 5,
+                "dates":{
+                    "to": "28.02.2017",
+                    "from": "01.02.2017"
+                },
+                "duration": 14,
+                "value": 1000
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "promocode": {
+                "id": 23,
+                "name": "VECTORAWESOME",
+                "user_id": 5,
+                "dates":{
+                    "to": "28.02.2017",
+                    "from": "01.02.2017"
+                },
+                "duration": 14,
+                "value": 1000
+            }
+        }
+
+### Add promocode [GET /api/users/promocode/action.php?action=add]
+Пользователь добавляет промокод. Возможные статусы: промокод применён, промокод не найденб, истёк срок действия промокода, данный промокод уже был использован
+
++ Request (application/json)
+
+        {
+            "action": "add",
+            "name": "VECTORAWESOME"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "promocode": {
+                "id": 23,
+                "name": "VECTORAWESOME",
+                "user_id": 5,
+                "dates":{
+                    "to": "28.02.2017",
+                    "from": "01.02.2017"
+                },
+                "duration": 14,
+                "value": 1000            
+            }
         }
