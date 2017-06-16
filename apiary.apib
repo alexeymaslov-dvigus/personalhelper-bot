@@ -192,7 +192,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "utm_source": "",
                     "utm_term": "",
                     "value": 0,
-                    "virtual_phone": "74996495086"
+                    "virtual_phone": "74996495086",
+                    "url_conversion": ""
                     }
             ],
             "count": "1059",
@@ -1383,6 +1384,95 @@ HOST: https://lk.vectoranalytics.ru/
             ]
         }
         
+### Set deal processing for project [GET /api/site/action.php?action=set_deal_processing]
+
+Распределяем обращения между системными операторами. Запускаем процедуру set_deal_processing__site(in in_site_id int)
+
++ Request (application/json)
+
+        {
+            "action": "set_deal_processing",
+            "site_id": 2
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+## Admin. Users [/api/user/action.php?action=get_for_accountant]
+
+### Get users list [GET /api/user/action.php?action=get_for_accountant]
+
+Получаем список Проектов
+
++ Request (application/json)
+
+        {
+            "action": "get_for_accountant"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "users":[
+                {
+                    "balance": -11423,
+                    "company_name": "",
+                    "email": "support@vectoranalytics.ru",
+                    "id": 1,
+                    "is_accountant": true,
+                    "is_developer": true,
+                    "is_system_operator": false,
+                    "is_verified_account": true,
+                    "is_verified_email": true,
+                    "is_verified_phone": false,
+                    "name": "Служба поддержки",
+                    "overdraft": 0,
+                    "phone_int": 74959840823,
+                    "telegram_chat_id": 254203930,
+                    "token_phone": 0
+                }
+            ]
+        }
+        
+### Get system operator list [GET /api/user/action.php?action=get_system_operators]
+
+Получаем список Проектов
+
++ Request (application/json)
+
+        {
+            "action": "get_system_operators"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "users":[
+                {
+                    "balance": -11423,
+                    "company_name": "",
+                    "email": "support@vectoranalytics.ru",
+                    "id": 1,
+                    "is_accountant": true,
+                    "is_developer": true,
+                    "is_system_operator": true,
+                    "is_favorite": 0,
+                    "is_verified_account": true,
+                    "is_verified_email": true,
+                    "is_verified_phone": false,
+                    "name": "Служба поддержки",
+                    "overdraft": 0,
+                    "phone_int": 74959840823,
+                    "telegram_chat_id": 254203930,
+                    "token_phone": 0
+                }
+            ]
+        }
+
 ## User permissions [/api/users/permissions/action.php]
 
 ### Get user permissions list [GET /api/users/permissions/action.php?action=get]
@@ -1497,7 +1587,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "dates":{
                     "to": "28.02.2017",
                     "from": "01.02.2017"
-                }
+                },
+                "is_active": true
             }
         }
         
@@ -1515,7 +1606,8 @@ HOST: https://lk.vectoranalytics.ru/
                         "from": "01.02.2017"
                     },
                     "duration": 14,
-                    "value": 1000
+                    "value": 1000,
+                    "is_active": true
                 }
             ]
         }
@@ -1528,13 +1620,16 @@ HOST: https://lk.vectoranalytics.ru/
         {
             "action": "save",
             "promocode": {
+                "id": null,
+                "name": "VECTORAWESOME",
                 "user_id": 5,
                 "dates":{
                     "to": "28.02.2017",
                     "from": "01.02.2017"
                 },
                 "duration": 14,
-                "value": 1000
+                "value": 1000,
+                "is_active": true
             }
         }
         
@@ -1551,12 +1646,13 @@ HOST: https://lk.vectoranalytics.ru/
                     "from": "01.02.2017"
                 },
                 "duration": 14,
-                "value": 1000
+                "value": 1000,
+                "is_active": true
             }
         }
 
-### Add promocode [GET /api/users/promocode/action.php?action=add]
-Пользователь добавляет промокод. Возможные статусы: промокод применён, промокод не найденб, истёк срок действия промокода, данный промокод уже был использован
+### Add promocode [GET /api/user/promocode/action.php?action=add]
+Пользователь добавляет промокод. Возможные статусы: промокод применён, промокод не найден, истёк срок действия промокода, данный промокод уже был использован
 
 + Request (application/json)
 
@@ -1577,7 +1673,180 @@ HOST: https://lk.vectoranalytics.ru/
                     "to": "28.02.2017",
                     "from": "01.02.2017"
                 },
-                "duration": 14,
-                "value": 1000            
+                "value": 1000,
+                "is_active": true
             }
+        }
+        
+### Get list promocodes for user [GET /api/user/promocode/action.php?action=get]
+Получаем список промокодов для пользователя
+
++ Request (application/json)
+
+        {
+            "action": "get"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "promocodes": [
+                {
+                    "id": 23,
+                    "name": "VECTORAWESOME",
+                    "user_id": 5,
+                    "dates":{
+                        "to": "28.02.2017",
+                        "from": "01.02.2017"
+                    },
+                    "value": 1000,
+                    "is_active": true
+                }
+            ]
+        }
+        
+### Remove promocode for user [GET /api/user/promocode/action.php?action=remove]
+Получаем список промокодов для пользователя
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "id": 23
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+## Import data [/api/import/action.php]
+
+### Get list import data [GET /api/import/action.php?action=get]
+Получаем список загруженных файлов
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "import_datas": [
+                {
+                    "id": 1,
+                    "name": "2017.06.14 - Импорт данных Голландский квартал.csv",
+                    "user_id": 5,
+                    "count_rows": 1000,
+                    "count_upload_rows": 1000,
+                    "is_active": true,
+                    "dt": "2017-04-27 19:41:49"
+                }
+            ]
+        }
+        
+### Remove import data [GET /api/import/action.php?action=remove]
+Удаляем загруженные данные
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 156,
+            "import_data":{
+                "id": 1
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+
+### Get Ads Tree [GET /api/tree/action.php?action=get]
+Получаем Рекламное дерево
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "edges": [
+                {
+                    "id": 2,
+                    "pid": 1,
+                    "name": "Платный трафик",
+                    "exp_import": "",
+                    "exp_vector": " traffic_type_id=30006 ",
+                    "user_id": 5,
+                    "dt": "2017-04-27 19:41:49"
+                }
+            ]
+        }
+        
+### Add Edge for Ads Tree [GET /api/tree/action.php?action=save]
+Сохраняем или добавляем узел для дерева
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "edge":{
+                "id": 3,
+                "pid": 1,
+                "name": "Поисковый трафик",
+                "exp_import": "",
+                "exp_vector": " traffic_type_id=30002 ",
+                "user_id": 5
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "edges": [
+                {
+                    "id": 3,
+                    "pid": 1,
+                    "name": "Поисковый трафик",
+                    "exp_import": "",
+                    "exp_vector": " traffic_type_id=30002 ",
+                    "user_id": 5,
+                    "dt": "2017-04-27 19:41:49"
+                }
+            ]
+        }
+        
+### Delete Edge for Ads Tree [GET /api/tree/action.php?action=delete]
+Удаляем узел для дерева
+
++ Request (application/json)
+
+        {
+            "action": "delete",
+            "site_id": 156,
+            "edge":{
+                "id": 3
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
         }
