@@ -64,9 +64,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                     "ui":{
                         "button": {
-                          "position_bottom": 80,
-                          "position_right": 100,
-                          "text": "Оставьте заявку"
+                            "position_bottom": 80,
+                            "position_right": 100,
+                            "text": "Оставьте заявку",
+                            "is_display": true
                         },
                         "form": {
                             "description": "Оставьте свой номер и мы вам перезвоним",
@@ -76,7 +77,10 @@ HOST: https://lk.vectoranalytics.ru/
                             "is_display_brand_icon": false,
                             "is_display_countdown": false,
                             "countdown": 60,
-                            "is_show_vector_logo": true
+                            "is_show_vector_logo": true,
+                            "is_show_free_of_charge": true,
+                            "is_show_speech_record": true,
+                            "is_border_radius": false
                         }, 
                         "background": {
                             "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -84,15 +88,16 @@ HOST: https://lk.vectoranalytics.ru/
                         }
                     },
                     "settings": {
-                      "is_use_closing": true,
-                      "is_use_once_day": true,
-                      "is_use_once_session": true,
-                      "is_use_timeout": true,
-                      "timeout": 60,
-                      "weekdays":{
+                        "is_use_closing": true,
+                        "is_use_once_day": true,
+                        "is_use_once_session": true,
+                        "is_use_timeout": true,
+                        "timeout": 60,
+                        "weekdays":{
                           "is_weekday": false,
                           "weekday_next": "Понедельник с 9:00 до 18:00"
-                      }
+                        },
+                        "show_form": "VectorShowForm"
                     }
                 }
             }
@@ -407,7 +412,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "button": {
                     "position_bottom": 80,
                     "position_right": 100,
-                    "text": "Оставьте заявку"
+                    "text": "Оставьте заявку",
+                    "is_display": true
                 },
                 "form": {
                     "description": "Оставьте свой номер и мы вам перезвоним",
@@ -418,7 +424,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_countdown": false,
                     "countdown": 60,
                     "effect_id": 1731,
-                    "is_show_vector_logo": true
+                    "is_show_vector_logo": true,
+                    "is_show_free_of_charge": true,
+                    "is_show_speech_record": true,
+                    "is_border_radius": false
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -442,7 +451,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "button": {
                     "position_bottom": 80,
                     "position_right": 100,
-                    "text": "Оставьте заявку"
+                    "text": "Оставьте заявку",
+                    "is_display": true
                 },
                 "form": {
                     "description": "Оставьте свой номер и мы вам перезвоним",
@@ -453,7 +463,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_countdown": false,
                     "countdown": 60,
                     "effect_id": 1731,
-                    "is_show_vector_logo": true
+                    "is_show_vector_logo": true,
+                    "is_show_free_of_charge": true,
+                    "is_show_speech_record": true,
+                    "is_border_radius": false
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -471,7 +484,8 @@ HOST: https://lk.vectoranalytics.ru/
                 "button": {
                     "position_bottom": 80,
                     "position_right": 100,
-                    "text": "Оставьте заявку"
+                    "text": "Оставьте заявку",
+                    "is_display": true
                 },
                 "form": {
                     "description": "Оставьте свой номер и мы вам перезвоним",
@@ -482,7 +496,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_display_countdown": false,
                     "countdown": 60,
                     "effect_id": 1731,
-                    "is_show_vector_logo": true
+                    "is_show_vector_logo": true,
+                    "is_show_free_of_charge": true,
+                    "is_show_speech_record": true,
+                    "is_border_radius": false
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -525,7 +542,12 @@ HOST: https://lk.vectoranalytics.ru/
                 "redirect_script_id": 9999,
                 "timeout": 60,
                 "is_use_spamfilter": true,
-                "is_use_once_session": true
+                "is_use_once_session": true,
+                "text_to_speech": {
+                    "is_active": true,
+                    "value": "Звонок с сайта"
+                    },
+                "show_form": "VectorShowForm"
                 }
         }
 
@@ -556,7 +578,12 @@ HOST: https://lk.vectoranalytics.ru/
                 "redirect_script_id": 9999,
                 "timeout": 60,
                 "is_use_spamfilter": true,
-                "is_use_once_session": true
+                "is_use_once_session": true,
+                "text_to_speech": {
+                    "is_active": true,
+                    "value": "Звонок с сайта"
+                    },
+                "show_form": "VectorShowForm"
                 }
         }
 
@@ -582,7 +609,11 @@ HOST: https://lk.vectoranalytics.ru/
                 "redirect_script_id": 9999,
                 "timeout": 60,
                 "is_use_spamfilter": true,
-                "is_use_once_session": true
+                "is_use_once_session": true,
+                "text_to_speech": {
+                    "is_active": true,
+                    "value": "Звонок с сайта"
+                    }
                 }
         }
         
@@ -1849,4 +1880,27 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null
+        }
+        
+### Import data [GET /api/import/action.php?action=load]
+Импортируем файл
+
++ Request (application/json)
+
+        {
+            "action": "load",
+            "type": "ads",
+            "site_id": "62",
+            "import_data": "file.csv",
+            "field_terminator": ";",
+            "line_terminator": "\r\n",
+            "incode": "utf8|cp1251",
+            "ignore_lines" : 1
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "imported_rows": 323232
         }
