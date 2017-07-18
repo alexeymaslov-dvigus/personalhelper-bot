@@ -64,8 +64,22 @@ HOST: https://lk.vectoranalytics.ru/
                     "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                     "ui":{
                         "button": {
-                            "position_bottom": 80,
-                            "position_right": 100,
+                            "position": {
+                                "bottom": {
+                                    "value": 80,
+                                    "unit": {
+                                        "type_id": 961,
+                                        "name": "px"
+                                    }
+                                },
+                                "right": {
+                                    "value": 100,
+                                    "unit":{
+                                        "type_id": 961,
+                                        "name": "px"
+                                    }
+                                },
+                            }, 
                             "text": "Оставьте заявку",
                             "is_display": true
                         },
@@ -163,6 +177,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "type": {
                         "id": 661,
                         "name": "Звонок"
+                    },
+                    "subtype_id": {
+                        "id": 668,
+                        "name": "Входящий звонок"
                     },
                     "gender": 0,
                     "id": 128964,
@@ -390,6 +408,161 @@ HOST: https://lk.vectoranalytics.ru/
             ]
         }
 
+## Goals [/api/goals/action.php]
+
+### Get list goals [GET /api/goals/action.php?action=get&site_id=156]
+
+Получаем список Целей
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "goals": [
+                {
+                    "id": 123,
+                    "name": "ТестAPI",
+                    "state": 1,
+                    "type_id": 666,
+                    "activation":{
+                        "type_id": 3101, 
+                        "element":{
+                            "type_id": 20101,
+                            "name": "test"
+                        }
+                    },
+                    "fields": [
+                        {
+                            "id": 252,
+                            "name": "",
+                            "type_id": 681,
+                            "element":{
+                                "type_id": 20101,
+                                "name": "test"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        
+### Get Goal info [GET /api/goals/action.php?action=get&site_id=156&goal_id=]
+
+Получаем информацию по одной Цели
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156,
+            "id": 123
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "goals": [
+                {
+                    "id": 123,
+                    "name": "ТестAPI",
+                    "state": 1,
+                    "type_id": 666,
+                    "activation":{
+                        "type_id": 3101, 
+                        "element":{
+                            "type_id": 20101,
+                            "name": "test"
+                        }
+                    },
+                    "fields": [
+                        {
+                            "id": 252,
+                            "name": "",
+                            "type_id": 681,
+                            "element":{
+                                "type_id": 20101,
+                                "name": "test"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+### Save Goal [GET /api/goals/action.php?action=save&site_id=156&goal_id=]
+
+Сохраняем информацию по Цели
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "goal": {
+                    "id": 123,
+                    "name": "ТестAPI",
+                    "state": 1,
+                    "type_id": 666,
+                    "activation":{
+                        "type_id": 3101, 
+                        "element":{
+                            "type_id": 20101,
+                            "name": "test"
+                        }
+                    },
+                    "fields": [
+                        {
+                            "id": 252,
+                            "name": "",
+                            "type_id": 681,
+                            "element":{
+                                "type_id": 20101,
+                                "name": "test"
+                            }
+                        }
+                    ]
+                }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "goal": {
+                    "id": 123,
+                    "name": "ТестAPI",
+                    "state": 1,
+                    "type_id": 666,
+                    "activation":{
+                        "type_id": 3101, 
+                        "element":{
+                            "type_id": 20101,
+                            "name": "test"
+                        }
+                    },
+                    "fields": [
+                        {
+                            "id": 252,
+                            "name": "",
+                            "type_id": 681,
+                            "element":{
+                                "type_id": 20101,
+                                "name": "test"
+                            }
+                        }
+                    ]
+                }
+        }
+
 ## Callback [/api/site/widget/callback/action.php]
 
 ### Get UI settings [GET /api/site/widget/callback/action.php?action=get_ui]
@@ -410,8 +583,22 @@ HOST: https://lk.vectoranalytics.ru/
                 "id": 999,
                 "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                 "button": {
-                    "position_bottom": 80,
-                    "position_right": 100,
+                    "position": {
+                        "bottom": {
+                            "value": 80,
+                            "unit": {
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                        "right": {
+                            "value": 100,
+                            "unit":{
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                    },             
                     "text": "Оставьте заявку",
                     "is_display": true
                 },
@@ -449,8 +636,22 @@ HOST: https://lk.vectoranalytics.ru/
                 "id": 999,
                 "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                 "button": {
-                    "position_bottom": 80,
-                    "position_right": 100,
+                    "position": {
+                        "bottom": {
+                            "value": 80,
+                            "unit": {
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                        "right": {
+                            "value": 100,
+                            "unit":{
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                    }, 
                     "text": "Оставьте заявку",
                     "is_display": true
                 },
@@ -482,8 +683,22 @@ HOST: https://lk.vectoranalytics.ru/
                 "id": 999,
                 "color": {"r": 255, "g": 255, "b": 255, "a": 1},
                 "button": {
-                    "position_bottom": 80,
-                    "position_right": 100,
+                    "position": {
+                        "bottom": {
+                            "value": 80,
+                            "unit": {
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                        "right": {
+                            "value": 100,
+                            "unit":{
+                                "type_id": 961,
+                                "name": "px"
+                            }
+                        },
+                    }, 
                     "text": "Оставьте заявку",
                     "is_display": true
                 },
@@ -1500,6 +1715,33 @@ HOST: https://lk.vectoranalytics.ru/
                     "phone_int": 74959840823,
                     "telegram_chat_id": 254203930,
                     "token_phone": 0
+                }
+            ]
+        }
+        
+## Admin. Phones [/api/phones/action.php?action=get_for_accountant]
+
+### Get phones list [GET /api/phones/action.php?action=get_for_accountant]
+
+Получаем список всех номеров
+
++ Request (application/json)
+
+        {
+            "action": "get_for_accountant"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "phones":[
+                {
+                    "id": 1,
+                    "phone_int": 7495123467,
+                    "start_date": "2017-01-01 10:00:00",
+                    "end_date": "",
+                    "state": 1
                 }
             ]
         }
