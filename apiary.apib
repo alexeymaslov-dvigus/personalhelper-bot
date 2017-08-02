@@ -68,17 +68,15 @@ HOST: https://lk.vectoranalytics.ru/
                                 "bottom": {
                                     "value": 80,
                                     "unit": {
-                                        "type_id": 961,
                                         "name": "px"
                                     }
                                 },
                                 "right": {
                                     "value": 100,
                                     "unit":{
-                                        "type_id": 961,
-                                        "name": "px"
+                                        "type_name": "px"
                                     }
-                                },
+                                }
                             }, 
                             "text": "Оставьте заявку",
                             "is_display": true
@@ -94,7 +92,9 @@ HOST: https://lk.vectoranalytics.ru/
                             "is_show_vector_logo": true,
                             "is_show_free_of_charge": true,
                             "is_show_speech_record": true,
-                            "is_border_radius": false
+                            "is_border_radius": false,
+                            "is_display_agreement_link": false,
+                            "agreement_link": ""
                         }, 
                         "background": {
                             "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -243,6 +243,114 @@ HOST: https://lk.vectoranalytics.ru/
                 }
             ]
         }
+        
+## Tags [/api/tags/action.php]
+
+### Get list tags [/api/tags/action.php?action=get]
+
+Получаем список тегов для сайата
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "tags": [
+                {
+                "id": 733,
+                "name": "реклама",
+                "count_deals": 10,
+                "state": 1
+                }
+            ]
+        }
+        
+### Get tag info [/api/tags/action.php?action=get&tag_id=]
+
+Получаем данные по одному тегу
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156
+            "tag_id": 5
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "tag": {
+                "id": 733,
+                "name": "реклама",
+                "count_deals": 10,
+                "state": 1
+            }
+        }
+        
+### Save tag [/api/tags/action.php?action=save&tag_id=]
+
+Сохраняем, удаляем или добавляем тег
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156
+            "tag": {
+                "id": 733,
+                "name": "реклама2",
+                "count_deals": 10,
+                "state": 1
+            }
+            
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "tag": {
+                "id": 733,
+                "name": "реклама2",
+                "count_deals": 10,
+                "state": 1
+            }
+        }
+        
+### Merge tags [/api/tags/action.php?action=merge]
+
+Объединить теги
+
++ Request (application/json)
+
+        {
+            "action": "merge",
+            "site_id": 156
+            "tag_slave_ids": [10, 13, 25, 26],
+            "tag_master_id": 30,
+            "name": "объединённый тег"
+            
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "tag": {
+                "id": 30,
+                "name": "объединённый тег",
+                "count_deals": 100ag,
+                "state": 1
+            }
+        }
             
 ## Group phones [/api/channels/action.php]
 
@@ -254,7 +362,7 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "action": "get",
-            "site_id": "{site_id}"
+            "site_id": 156
         }
         
 + Response 200 (text/javascript)
@@ -310,7 +418,7 @@ HOST: https://lk.vectoranalytics.ru/
                     "site_max_lifetime": 1800,
                     "redirect_script_id": 223,
                     "count_phones": 4,
-                    "count_phones_add": 5
+                    "count_phones_add": 5,
                     "exceptions": {
                         "phones_count": 2,
                         "ips_count": 0
@@ -353,14 +461,14 @@ HOST: https://lk.vectoranalytics.ru/
         
 ## Redirect [/api/site/action.php]
 
-### Get list redirect script [GET /api/site/action.php?action=get_redirect_scripts]
+### Get list redirect script [GET /api/site/redirect_script/action.php?action=get]
 
 Получаем список Сценариев перадресации
 
 + Request (application/json)
 
         {
-            "action": "get_redirect_scripts",
+            "action": "get",
             "site_id": 156
         }
         
@@ -374,19 +482,22 @@ HOST: https://lk.vectoranalytics.ru/
                 "name": "Базовый сценарий",
                 "state": 1,
                 "count_channels":5,
-                "is_use_for_widget": true
+                "is_use_for_widget": true,
+                "forward_mode_id": 611,
+                "channels":[],
+                "rules":[]
                 }
             ]
         }
-        
-### Get redirect script info [GET /api/site/action.php?action=get_redirect_scripts&redirect_script_id=]
 
-Получаем информацию по одному Сценарию перадресации
+### Get redirect script info [GET /api/site/redirect_script/action.php?action=get&redirect_script_id=]
+
+Получаем информацию по Сценарию перадресации
 
 + Request (application/json)
 
         {
-            "action": "get_redirect_scripts",
+            "action": "get",
             "site_id": 156,
             "redirect_script_id": 123
         }
@@ -395,8 +506,42 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null,
-            "redirect_scripts": [
-                {
+            "redirect_script": {
+                "id": 123,
+                "name": "Базовый сценарий",
+                "state": 1,
+                "count_channels":5,
+                "is_use_for_widget": true,
+                "forward_mode_id": 611,
+                "channels":[],
+                "rules":[]
+                }
+        }        
+
+### Create redirect script [GET /api/site/redirect_script/action.php?action=create]
+
+Создаём Сценарий перадресации
+
++ Request (application/json)
+
+        {
+            "action": "create",
+            "site_id": 156,
+            "redirect_script_id": null,
+            "name": "Базовый сценарий",
+            "rule": {
+                "description": "Правило 1",
+                "type_id": 2191,
+                "site_sipid_history_id": 0,
+                "redirect_number": "79639785897"
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_script": {
                 "id": 123,
                 "name": "Базовый сценарий",
                 "state": 1,
@@ -405,7 +550,103 @@ HOST: https://lk.vectoranalytics.ru/
                 "channels":[],
                 "rules":[]
                 }
-            ]
+        }
+        
+        
+### Save redirect script [GET /api/site/redirect_script/action.php?action=save]
+
+Сохраняем Сценарий перадресации
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "redirect_script_id": 123,
+            "redirect_script_name": "Базовый сценарий",
+            "forward_mode_id": 611
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_script": {
+                "id": 123,
+                "name": "Базовый сценарий",
+                "state": 1,
+                "count_channels":5,
+                "is_use_for_widget": true,
+                "forward_mode_id": 611,
+                "channels":[],
+                "rules":[]
+                }
+        }
+        
+### Get rule info for redirect script [GET /api/site/redirect_script/rule/action.php?action=get&id=]
+
+Получаем информацию по одному Правилу перадресации
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156,
+            "redirect_script_id": 123,
+            "rule_id": 456
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_script_id": 132,
+            "rule": {
+                "description": "Правило 1",
+                "id": 456,
+                "period": "always",
+                "redirect_number": "79639785897",
+                "timeout": 60,
+                "type_id": 2191,
+                "site_sipid_history_id": 0
+            }
+        }
+        
+### Save rule info for redirect script [GET /api/site/redirect_script/rule/action.php?action=save&id=]
+
+Сохраняем информацию по одному Правилу перадресации
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "redirect_script_id": 132,
+            "rule": {
+                "description": "Правило 1",
+                "id": 456,
+                "period": "always",
+                "redirect_number": "79639785897",
+                "timeout": 60,
+                "type_id": 2191,
+                "site_sipid_history_id": 0
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "redirect_script_id": 132,
+            "rule": {
+                "description": "Правило 1",
+                "id": 456,
+                "period": "always",
+                "redirect_number": "79639785897",
+                "timeout": 60,
+                "type_id": 2191,
+                "site_sipid_history_id": 0
+            }
         }
 
 ## Goals [/api/goals/action.php]
@@ -588,16 +829,16 @@ HOST: https://lk.vectoranalytics.ru/
                             "value": 80,
                             "unit": {
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
                         },
                         "right": {
                             "value": 100,
                             "unit":{
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
-                        },
+                        }
                     },             
                     "text": "Оставьте заявку",
                     "is_display": true
@@ -614,7 +855,9 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_show_vector_logo": true,
                     "is_show_free_of_charge": true,
                     "is_show_speech_record": true,
-                    "is_border_radius": false
+                    "is_border_radius": false,
+                    "is_display_agreement_link": false,
+                    "agreement_link": ""
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -641,16 +884,16 @@ HOST: https://lk.vectoranalytics.ru/
                             "value": 80,
                             "unit": {
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
                         },
                         "right": {
                             "value": 100,
                             "unit":{
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
-                        },
+                        }
                     }, 
                     "text": "Оставьте заявку",
                     "is_display": true
@@ -667,7 +910,9 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_show_vector_logo": true,
                     "is_show_free_of_charge": true,
                     "is_show_speech_record": true,
-                    "is_border_radius": false
+                    "is_border_radius": false,
+                    "is_display_agreement_link": false,
+                    "agreement_link": ""
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -688,16 +933,16 @@ HOST: https://lk.vectoranalytics.ru/
                             "value": 80,
                             "unit": {
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
                         },
                         "right": {
                             "value": 100,
                             "unit":{
                                 "type_id": 961,
-                                "name": "px"
+                                "type_name": "px"
                             }
-                        },
+                        }
                     }, 
                     "text": "Оставьте заявку",
                     "is_display": true
@@ -714,7 +959,9 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_show_vector_logo": true,
                     "is_show_free_of_charge": true,
                     "is_show_speech_record": true,
-                    "is_border_radius": false
+                    "is_border_radius": false,
+                    "is_display_agreement_link": false,
+                    "agreement_link": ""
                 },
                 "background": {
                     "color": {"r": 255, "g": 255, "b": 255, "a": 0.5},
@@ -1381,12 +1628,11 @@ HOST: https://lk.vectoranalytics.ru/
             }
         }
 
-        
-## Integrations [/api/integrations/action.php]
+## Big Report [/api/reports/bigreport/action.php]
 
-### Get integrations list [GET /api/external/integrations/action.php/action=get]
+### Get Big Report config [GET /api/reports/bigreport/action.php?action=get]
 
-Получаем список интеграции
+Получаем конфигурацию всех отчётов по сайту
 
 + Request (application/json)
 
@@ -1399,17 +1645,329 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null,
+            "reports": [
+                {
+                    "id": 10,
+                    "name": "Большой отчёт",
+                    "pages": [
+                        {
+                            "id": 10,
+                            "name": "Динамика",
+                            "report_type_id": 14,
+                            "selected_column_id": 0,
+                            "selected_metrics": [92, 93, 122, 133, 135],
+                            "attr_model": 0,
+                            "group_by": 30101
+                        }
+                    ]
+                }
+            ]
+        }
+
+### Get one Big Report config [GET /api/reports/bigreport/action.php?action=get&id=]
+
+Получаем конфигурацию одного отчёта
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 89,
+            "id": 10
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "reports": {
+                    "id": 10,
+                    "name": "Большой отчёт",
+                    "pages": [
+                        {
+                            "id": 10,
+                            "name": "Динамика",
+                            "report_type_id": 14,
+                            "selected_column_id": 0,
+                            "selected_metrics": [92, 93, 122, 133, 135],
+                            "attr_model": 0,
+                            "group_by": 30101
+                        }
+                    ]
+                }
+        }
+        
+
+
+### Save Big Report [GET /api/reports/bigreport/action.php?action=save]
+
+Сохраняем название отчёта
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "report": {
+                    "id": 10,
+                    "name": "Большой отчёт"
+                }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "report": {
+                    "id": 10,
+                    "name": "Большой отчёт"
+                }
+        }
+
+
+### Run Big Report [GET /api/reports/bigreport/action.php?action=run]
+
+Запускаем выполнение отчёта
+
++ Request (application/json)
+
+        {
+            "action": "run",
+            "site_id": 89,
+            "id": 10,
+            "filters": {
+                "dates": {
+                    "from": "20.07.2017",
+                    "to": "26.07.2017"
+                }
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "link": "http://ak.dev.vector.xpkg.ru/user_reports/v1.xlsx"
+        }
+        
+### Save Page to Big Report  [GET /api/reports/bigreport/page/action.php?action=save]
+
+Сохраняем конфигурацию страницы в отчёте
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 156,
+            "report_id": 10,
+            "page": {
+                    "id": 10,
+                    "name": "Динамика",
+                    "report_type_id": 14,
+                    "selected_column_id": 0,
+                    "selected_metrics": [92, 93, 122, 133, 135],
+                    "attr_model": 0,
+                    "group_by": 30101
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "report_id": 10,
+            "page": {
+                    "id": 10,
+                    "name": "Динамика",
+                    "report_type_id": 14,
+                    "selected_column_id": 0,
+                    "selected_metrics": [92, 93, 122, 133, 135],
+                    "attr_model": 0,
+                    "group_by": 30101
+            }
+        }
+        
+### Remove Page from Big Report  [GET /api/reports/bigreport/page/action.php?action=remove]
+
+Удаляем страницу из отчёта
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 156,
+            "report_id": 10,
+            "page_id": 10
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Save Order Page for Big Report [GET /api/reports/bigreport/page/action.php?action=set_order]
+
+Сохраняем сортировку страниц отчёта
+
++ Request (application/json)
+
+        {
+            "action": "set_order",
+            "site_id": 156,
+            "report_id": 10,
+            "page_ids": [10, 11, 12, 13]
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+        
+## SIP ID [/api/sip/action.php]
+
+
+
+### SIP IDs config [GET /api/sip/action.php?action=get]
+
+Получаем список SIP
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 89
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sips": [
+                        {
+                            "id": 10,
+                            "name": "Алексей",
+                            "sip_id": 883140779189701,
+                            "password": "2Je35iU4Y4",
+                            "mtt_phones_history_id": 10,
+                            "user_id": 5,
+                            "start_date": "20.07.2017",
+                            "end_date": "20.07.2017"
+                        }
+                    ]
+        }
+        
+
+
+### SIP ID config [GET /api/sip/action.php?action=get&id=]
+Данные по одному SIP
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 89,
+            "id": 2
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sip": {
+                            "id": 10,
+                            "name": "Алексей",
+                            "sip_id": 883140779189701,
+                            "password": "2Je35iU4Y4",
+                            "mtt_phones_history_id": 10,
+                            "user_id": 5,
+                            "start_date": "20.07.2017",
+                            "end_date": "20.07.2017"
+                        }
+        }
+
+### Save SIP ID config  [GET /api/sip/action.php?action=save]
+
+Сохранение данных по SIP
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 89,
+            "sip": {
+                    "id": 10,
+                    "name": "Алексей"
+                }
+            
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "sip": {
+                    "id": 10,
+                    "name": "Алексей",
+                    "sip_id": 883140779189701,
+                    "password": "2Je35iU4Y4",
+                    "mtt_phones_history_id": 10,
+                    "user_id": 5,
+                    "start_date": "20.07.2017",
+                    "end_date": "20.07.2017"
+                }
+        }
+        
+### Remove SIP ID  [GET /api/sip/action.php?action=remove]
+
+Удаляем SIP из проекта
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 156,
+            "id": 2
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+
+## Integrations [/api/integrations/action.php]
+
+### Get integrations list [GET /api/external/integrations/action.php?action=get]
+
+Получаем список интеграции
+
++ Request (application/json)
+
+
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
             "integrations":[
                 {
-                    "id": 7,
-                    "type_id": 1622,
-                    "subdomain": "martinholland",
+                    "active_dt": "",
+                    "check_active_dt": "",
                     "hash": "d9bbcef1196ccddeaf521f7457201f2d",
-                    "login": "martin.dvigus@gmail.com",
+                    "id": 7,
                     "is_send_calls": false,
                     "is_send_leads": false,
                     "is_send_cbs": false,
-                    "state": true
+                    "is_send_objective": false,
+                    "login": "martin.dvigus@gmail.com",
+                    "oauth": "",
+                    "state": true,
+                    "subdomain": "martinholland",
+                    "type_id": 1622
                 }
             ]
         }
