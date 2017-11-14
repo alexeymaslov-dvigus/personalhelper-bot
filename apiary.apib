@@ -5,6 +5,17 @@ HOST: https://lk.vectoranalytics.ru/
 
 Описание API Вектора
 
+## Внешнее API
+
+### Get token for user [GET]
+
+Выделить токен для пользователя
+     /oauth?client_id=0d07c30a399ffd893b59ca770ded0b6c&state=some_text
+
+Переадресация на   
+    /app/token/?token=user_token&url=app_callback_url&state=some_text
+    
+
 ## Template [/template.php]
 
 ### Draft API [GET]
@@ -77,7 +88,7 @@ HOST: https://lk.vectoranalytics.ru/
                                         "type_name": "px"
                                     }
                                 }
-                            }, 
+                            },
                             "text": "Оставьте заявку",
                             "is_display": true
                         },
@@ -115,10 +126,16 @@ HOST: https://lk.vectoranalytics.ru/
                     }
                 }
             }
+
+
+
+        
             
 ## Deals [/api/site/deals/action.php]
 
 ### Get deals list [GET /api/site/deals/action.php?action=get]
+
+Получить список обращений
 
 + Request (application/json)
 
@@ -159,7 +176,10 @@ HOST: https://lk.vectoranalytics.ru/
                 {
                     "abonent_phone": "79639785897",
                     "ad_channels": null,
-                    "audio": {},
+                    "audio": {
+                        "json": "https://lk.vectoranalytics.ru/audio/mp3_v9/6296/2017-11-10_12.16.37_from_74986282670_to_74996489701.json",
+                        "link": "https://lk.vectoranalytics.ru/api/audio/action.php?h1=5670bec2-ef87-11e6-bf90-448a5bd87a8d&h2=7c30e212-c5f8-11e7-b8cb-448a5bd87a8d&type=.mp3"
+                    },
                     "category_id": 460,
                     "channel_name": "студио12-KR Propert-topnovostr",
                     "city": "",
@@ -167,6 +187,7 @@ HOST: https://lk.vectoranalytics.ru/
                     "client_name": "",
                     "client_phone": "",
                     "comment": "",
+                    "adm_comment": "",
                     "date": "2017-04-27 19:41:49",
                     "deal_days_gap": 0,
                     "deal_processing": {
@@ -216,7 +237,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "utm_term": "",
                     "value": 0,
                     "virtual_phone": "74996495086",
-                    "url_conversion": ""
+                    "url_conversion": "",
+                    "save_deals_mechanics_state": 0
                     }
             ],
             "count": "1059",
@@ -244,10 +266,248 @@ HOST: https://lk.vectoranalytics.ru/
             ]
         }
         
-## Tags [/api/tags/action.php]
+### Save deal [GET /api/site/deals/action.php?action=save]
 
-### Get list tags [/api/tags/action.php?action=get]
+Сохранение данных по обращению
 
++ Request (application/json)
+
+        {
+            "action": "save",
+            "site_id": 261,
+            "deal":{
+                    "abonent_phone": "79639785897",
+                    "ad_channels": null,
+                    "audio": {
+                        "json": "https://lk.vectoranalytics.ru/audio/mp3_v9/6296/2017-11-10_12.16.37_from_74986282670_to_74996489701.json",
+                        "link": "https://lk.vectoranalytics.ru/api/audio/action.php?h1=5670bec2-ef87-11e6-bf90-448a5bd87a8d&h2=7c30e212-c5f8-11e7-b8cb-448a5bd87a8d&type=.mp3"
+                    },
+                    "category_id": 460,
+                    "channel_name": "студио12-KR Propert-topnovostr",
+                    "city": "",
+                    "client_email": "",
+                    "client_name": "",
+                    "client_phone": "",
+                    "comment": "",
+                    "adm_comment": "",
+                    "date": "2017-04-27 19:41:49",
+                    "deal_days_gap": 0,
+                    "deal_processing": {
+                        "id": 763,
+                        "name": "Полная обработка"
+                    },
+                    "duration": "00:02:40",
+                    "type": {
+                        "id": 661,
+                        "name": "Звонок"
+                    },
+                    "subtype_id": {
+                        "id": 668,
+                        "name": "Входящий звонок"
+                    },
+                    "gender": 0,
+                    "id": 128964,
+                    "ip": null,
+                    "is_delay": false,
+                    "is_manual": 0,
+                    "is_missed": 0,
+                    "is_repeated": 1,
+                    "is_result": false,
+                    "is_spam": 0,
+                    "is_save": true,
+                    "keyword": null,
+                    "landing_page": "",
+                    "manager_name": "",
+                    "manager_value": null,
+                    "promo": "",
+                    "provider": {
+                        "id": 384,
+                        "name": "Вектор"
+                    },
+                    "referrer": "",
+                    "setup_time_ms": 4246,
+                    "site_id": 261,
+                    "system_operator_id": 63,
+                    "tag_str":  "",
+                    "tags": [
+                    ],
+                    "trigger": null,
+                    "utm_campaign": "",
+                    "utm_content": "",
+                    "utm_medium": "",
+                    "utm_source": "",
+                    "utm_term": "",
+                    "value": 0,
+                    "virtual_phone": "74996495086",
+                    "save_deals_mechanics_state": 0
+                    }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "call":{
+                    "abonent_phone": "79639785897",
+                    "ad_channels": null,
+                    "audio": {
+                        "json": "https://lk.vectoranalytics.ru/audio/mp3_v9/6296/2017-11-10_12.16.37_from_74986282670_to_74996489701.json",
+                        "link": "https://lk.vectoranalytics.ru/api/audio/action.php?h1=5670bec2-ef87-11e6-bf90-448a5bd87a8d&h2=7c30e212-c5f8-11e7-b8cb-448a5bd87a8d&type=.mp3"
+                    },
+                    "category_id": 460,
+                    "channel_name": "студио12-KR Propert-topnovostr",
+                    "city": "",
+                    "client_email": "",
+                    "client_name": "",
+                    "client_phone": "",
+                    "comment": "",
+                    "adm_comment": "",
+                    "date": "2017-04-27 19:41:49",
+                    "deal_days_gap": 0,
+                    "deal_processing": {
+                        "id": 763,
+                        "name": "Полная обработка"
+                    },
+                    "duration": "00:02:40",
+                    "type": {
+                        "id": 661,
+                        "name": "Звонок"
+                    },
+                    "subtype_id": {
+                        "id": 668,
+                        "name": "Входящий звонок"
+                    },
+                    "gender": 0,
+                    "id": 128964,
+                    "ip": null,
+                    "is_delay": false,
+                    "is_manual": 0,
+                    "is_missed": 0,
+                    "is_repeated": 1,
+                    "is_result": false,
+                    "is_spam": 0,
+                    "is_save": true,
+                    "keyword": null,
+                    "landing_page": "",
+                    "manager_name": "",
+                    "manager_value": null,
+                    "promo": "",
+                    "provider": {
+                        "id": 384,
+                        "name": "Вектор"
+                    },
+                    "referrer": "",
+                    "setup_time_ms": 4246,
+                    "site_id": 261,
+                    "system_operator_id": 63,
+                    "tag_str":  "",
+                    "tags": [
+                    ],
+                    "trigger": null,
+                    "utm_campaign": "",
+                    "utm_content": "",
+                    "utm_medium": "",
+                    "utm_source": "",
+                    "utm_term": "",
+                    "value": 0,
+                    "virtual_phone": "74996495086",
+                    "save_deals_mechanics_state": 0
+                    }
+        }
+
+
+### Get deals list for system operator [GET /api/site/deals/action.php?action=get_for_operator]
+
+Получить список обращений по заданному проекту для данного номера абонента
+
++ Request (application/json)
+
+        {
+            "action": "get_for_operator",
+            "site_id": 261,
+            "phone_int": 79639785897
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "deals": [
+                {
+                    "id": 128964,
+                    "site_id": 261,
+                    "start_date": "2017-04-27 19:41:49",
+                    "processing": {
+                        "client": {
+                            "phone_int": "79639785897",
+                            "email": "",
+                            "name": "",
+                            "phone": "",
+                            "gender": 0
+                        },
+                        "category_id": 460,
+                        "comment": "",
+                        "adm_comment": "",
+                        "is_delay": false,
+                        "is_result": false,
+                        "is_spam": 0,
+                        "is_save": true,
+                        "manager_name": "",
+                        "manager_value": null,
+                        "promo": "",
+                        "tag_str":  "",
+                        "tags": [
+                        ],
+                        "value": 0
+                    },
+                    "processing_type": {
+                        "id": 763,
+                        "name": "Полная обработка"
+                    },
+                    "traffic": {
+                        "ad_channels": null,
+                        "url_conversion": ""
+                    },
+                    "audio": {
+                        "json": "https://lk.vectoranalytics.ru/audio/mp3_v9/6296/2017-11-10_12.16.37_from_74986282670_to_74996489701.json",
+                        "link": "https://lk.vectoranalytics.ru/api/audio/action.php?h1=5670bec2-ef87-11e6-bf90-448a5bd87a8d&h2=7c30e212-c5f8-11e7-b8cb-448a5bd87a8d&type=.mp3"
+                    },
+                    "info": {
+                        "channel_name": "студио12-KR Propert-topnovostr",
+                        "duration": "00:02:40",
+                        "type": {
+                            "id": 661,
+                            "name": "Звонок"
+                        },
+                        "subtype_id": {
+                            "id": 668,
+                            "name": "Входящий звонок"
+                        },
+                        "provider": {
+                            "id": 384,
+                            "name": "Вектор"
+                        },
+                        "is_manual": 0,
+                        "is_missed": 0,
+                        "is_repeated": 1,
+                        "setup_time_ms": 4246,
+Фа                        "trigger": null,
+                        "deal_days_gap": 0,
+                        "save_deals_mechanics_state": 0
+                    }
+                }
+            ],
+            "managers": [
+                {
+                    "site_id": 261,
+                    "values": []
+                }
+            ]
+        }
+        
+## Tag [/api/tags/action.php]
+
+### Get list tags [GET /api/tags/action.php?action=get]
 Получаем список тегов для сайата
 
 + Request (application/json)
@@ -271,15 +531,14 @@ HOST: https://lk.vectoranalytics.ru/
             ]
         }
         
-### Get tag info [/api/tags/action.php?action=get&tag_id=]
-
+### Get tag info [GET /api/tags/action.php?action=get&tag_id=]
 Получаем данные по одному тегу
 
 + Request (application/json)
 
         {
             "action": "get",
-            "site_id": 156
+            "site_id": 156,
             "tag_id": 5
         }
         
@@ -295,15 +554,15 @@ HOST: https://lk.vectoranalytics.ru/
             }
         }
         
-### Save tag [/api/tags/action.php?action=save&tag_id=]
+### Save tag [GET /api/tags/action.php?action=save&tag_id=]
 
-Сохраняем, удаляем или добавляем тег
+Сохраняем или добавляем тег
 
 + Request (application/json)
 
         {
             "action": "save",
-            "site_id": 156
+            "site_id": 156,
             "tag": {
                 "id": 733,
                 "name": "реклама2",
@@ -325,7 +584,44 @@ HOST: https://lk.vectoranalytics.ru/
             }
         }
         
-### Merge tags [/api/tags/action.php?action=merge]
+### Remove tag [GET /api/tags/action.php?action=remove&tag_id=]
+
+Удаляем тег
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 156,
+            "tag_id": 733
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Restore tag [GET /api/tags/action.php?action=restore&tag_id=]
+
+Восстанавливаем тег из удалённых
+
++ Request (application/json)
+
+        {
+            "action": "restore",
+            "site_id": 156,
+            "tag_id": 733
+            
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Merge tags [GET /api/tags/action.php?action=merge]
 
 Объединить теги
 
@@ -333,25 +629,18 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "action": "merge",
-            "site_id": 156
-            "tag_slave_ids": [10, 13, 25, 26],
-            "tag_master_id": 30,
-            "name": "объединённый тег"
+            "site_id": 156,
+            "tag_slave_id": 10,
+            "tag_master_id": 30
             
         }
         
 + Response 200 (text/javascript)
 
         {
-            "error": null,
-            "tag": {
-                "id": 30,
-                "name": "объединённый тег",
-                "count_deals": 100ag,
-                "state": 1
-            }
+            "error": null
         }
-            
+        
 ## Group phones [/api/channels/action.php]
 
 ### Get list group phones [GET /api/channels/action.php?action=get]
@@ -426,7 +715,10 @@ HOST: https://lk.vectoranalytics.ru/
                     "phones": [{
                         "id": 2845,
                         "phone": "+7(499) 648-66-76",
-                        "phone_int": 74996486676
+                        "phone_int": 74996486676,
+                        "start_date": "2017-08-22 18:54:33",
+                        "is_rotation_phone_type": true,
+                        "is_own_phone": false
                     }],
                     "utm_template": {
                         "id": 786,
@@ -444,19 +736,31 @@ HOST: https://lk.vectoranalytics.ru/
                         "utm_id": 10,
                         "value_id": null
                     }],
-                    "forwarding": {
-                        "phone": "+7(499) 648-66-90",
-                        "phone_int": 74996486690,
-                        "id": 2844,
-                        "mtt_id": 551
-                    },
-                    
                     "utm_template": {
                         "id": 786,
                         "name": "Редактор правил"
                     }
                 }
             ]
+        }
+        
+### Disconnect phone [GET /api/channels/action.php?action=disconnect]
+
+Отключение виртуального номера телефона
+
++ Request (application/json)
+
+        {
+            "action": "disconnect",
+            "site_id": 156,
+            "channel_id": 10,
+            "phone_id": 10
+        } 
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
         }
         
 ## Redirect [/api/site/action.php]
@@ -612,6 +916,25 @@ HOST: https://lk.vectoranalytics.ru/
             }
         }
         
+### Delete rule from redirect script [GET /api/site/redirect_script/rule/action.php?action=remove]
+
+Удаляем правило из Сценария переадресации
+
++ Request (application/json)
+
+        {
+            "action": "remove",
+            "site_id": 156,
+            "redirect_script_id": 123,
+            "rule_id": 456
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
 ### Save rule info for redirect script [GET /api/site/redirect_script/rule/action.php?action=save&id=]
 
 Сохраняем информацию по одному Правилу перадресации
@@ -647,6 +970,25 @@ HOST: https://lk.vectoranalytics.ru/
                 "type_id": 2191,
                 "site_sipid_history_id": 0
             }
+        }
+        
+### Save Order Rules for Redirect Script [GET /api/site/redirect_script/rule/action.php?action=set_order]
+
+Сохраняем сортировку правил для Сценария переадресации
+
++ Request (application/json)
+
+        {
+            "action": "set_order",
+            "site_id": 156,
+            "redirect_script_id": 10,
+            "rules": [10, 11, 12, 13]
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
         }
 
 ## Goals [/api/goals/action.php]
@@ -1263,6 +1605,11 @@ HOST: https://lk.vectoranalytics.ru/
                         "mobile_russia": 2.99,
                         "fix_msk_spb": 1.15
                     },
+                    "sip":{
+                        "count": 3,
+                        "cost": 150,
+                        "month_cost": 450
+                    },
                     "month_cost": 0
                 },
                 "month_cost": 1400
@@ -1526,15 +1873,8 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_required": false,
                     "is_sum": true,
                     "is_active": true,
-                    "name": "Все обращения"
-                },
-                {
-                    "id": 93,
-                    "is_percent_view": true,
-                    "is_required": false,
-                    "is_sum": true,
-                    "is_active": true,
-                    "name": "Целевые обращения"
+                    "name": "Все обращения",
+                    "order": "desc"
                 }
             ],
             "selected_rows": [],
@@ -1546,10 +1886,10 @@ HOST: https://lk.vectoranalytics.ru/
             "user_report_id": 0,
             "magic_string": "",
             "settings": {
+                "is_include_vat": false,
                 "set_top_rows": true,
                 "attr_model": 5001,
-                "group_by": 30104,
-                "is_default": true
+                "group_by": 30104
             },
             "plot_option":{
                 "type": "spline"
@@ -1654,6 +1994,7 @@ HOST: https://lk.vectoranalytics.ru/
                             "id": 10,
                             "name": "Динамика",
                             "report_type_id": 14,
+                            "is_include_vat": true,
                             "selected_column_id": 0,
                             "selected_metrics": [92, 93, 122, 133, 135],
                             "attr_model": 0,
@@ -1688,6 +2029,7 @@ HOST: https://lk.vectoranalytics.ru/
                             "id": 10,
                             "name": "Динамика",
                             "report_type_id": 14,
+                            "is_include_vat": true,
                             "selected_column_id": 0,
                             "selected_metrics": [92, 93, 122, 133, 135],
                             "attr_model": 0,
@@ -1764,10 +2106,12 @@ HOST: https://lk.vectoranalytics.ru/
                     "id": 10,
                     "name": "Динамика",
                     "report_type_id": 14,
+                    "is_include_vat": true,
                     "selected_column_id": 0,
                     "selected_metrics": [92, 93, 122, 133, 135],
                     "attr_model": 0,
-                    "group_by": 30101
+                    "group_by": 30101,
+                    "magic_string": ""
             }
         }
         
@@ -1780,10 +2124,12 @@ HOST: https://lk.vectoranalytics.ru/
                     "id": 10,
                     "name": "Динамика",
                     "report_type_id": 14,
+                    "is_include_vat": true,
                     "selected_column_id": 0,
                     "selected_metrics": [92, 93, 122, 133, 135],
                     "attr_model": 0,
-                    "group_by": 30101
+                    "group_by": 30101,
+                    "magic_string": ""
             }
         }
         
@@ -1854,7 +2200,8 @@ HOST: https://lk.vectoranalytics.ru/
                             "mtt_phones_history_id": 10,
                             "user_id": 5,
                             "start_date": "20.07.2017",
-                            "end_date": "20.07.2017"
+                            "end_date": "20.07.2017",
+                            "count_redirect_scripts": 2
                         }
                     ]
         }
@@ -1884,7 +2231,14 @@ HOST: https://lk.vectoranalytics.ru/
                             "mtt_phones_history_id": 10,
                             "user_id": 5,
                             "start_date": "20.07.2017",
-                            "end_date": "20.07.2017"
+                            "end_date": "20.07.2017",
+                            "count_redirect_scripts": 2,
+                            "redirect_scripts":[
+                                {
+                                    "id": 10,
+                                    "name": "Базовый сценарий"
+                                }
+                            ]
                         }
         }
 
@@ -1947,6 +2301,10 @@ HOST: https://lk.vectoranalytics.ru/
 
 + Request (application/json)
 
+        {
+            "action": "get",
+            "site_id": 156
+        }
 
         
 + Response 200 (text/javascript)
@@ -1967,9 +2325,45 @@ HOST: https://lk.vectoranalytics.ru/
                     "oauth": "",
                     "state": true,
                     "subdomain": "martinholland",
-                    "type_id": 1622
+                    "type_id": 1622,
+                    "count_errors": 0
                 }
             ]
+        }
+        
+### Get integration info [GET /api/external/integrations/action.php?action=get&integration_id=]
+
+Получаем данные по одной интеграции
+
++ Request (application/json)
+
+        {
+            "action": "get",
+            "site_id": 156,
+            "integration_id": 15
+        }
+
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "integration":{
+                    "active_dt": "",
+                    "check_active_dt": "",
+                    "hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                    "id": 15,
+                    "is_send_calls": false,
+                    "is_send_leads": false,
+                    "is_send_cbs": false,
+                    "is_send_objective": false,
+                    "login": "martin.dvigus@gmail.com",
+                    "oauth": "",
+                    "state": true,
+                    "subdomain": "martinholland",
+                    "type_id": 1622,
+                    "count_errors": 0
+            }
         }
         
 ### Save integration  [GET /api/external/integrations/action.php/action=save]
@@ -2009,6 +2403,58 @@ HOST: https://lk.vectoranalytics.ru/
                     "is_send_cbs": false,
                     "state": true
             }
+        }
+        
+### Set integration state  [GET /api/external/integrations/action.php/action=set_state]
+
+Меняем статус интеграции
+
++ Request (application/json)
+
+        {
+            "action": "set_state",
+            "site_id": 89,
+            "integration_id": 7,
+            "state": true
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "integration":{
+                    "id": 7,
+                    "type_id": 1622,
+                    "subdomain": "martinholland",
+                    "hash": "d9bbcef1196ccddeaf521f7457201f2d",
+                    "login": "martin.dvigus@gmail.com",
+                    "is_send_calls": false,
+                    "is_send_leads": false,
+                    "is_send_cbs": false,
+                    "state": true
+            }
+        }
+        
+### Get stats for interval  [GET /api/external/integrations/action.php/action=get_stats]
+
+Скачать стат. данные за интервал дат
+
++ Request (application/json)
+
+        {
+            "action": "get_stats",
+            "site_id": 89,
+            "integration_id": 7,
+            "dates": {
+                "from": "05.04.2017",
+                "to": "27.04.2017"
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
         }
         
         
@@ -2071,6 +2517,7 @@ HOST: https://lk.vectoranalytics.ru/
         {
             "action": "get_for_accountant",
             "magic_string": "",
+            "owner_id": 5,
             "limit": 25
         }
         
@@ -2277,6 +2724,41 @@ HOST: https://lk.vectoranalytics.ru/
             ]
         }
         
+        
+### Reset user password [GET /api/user/action.php?action=reset_password]
+
+Сбросить пароль для пользователя
+
++ Request (application/json)
+
+        {
+            "action": "reset_password",
+            "user_id": 5
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+### Delete user sessions [GET /api/user/action.php?action=delete_sessions]
+
+Удалить все сессии пользователя
+
++ Request (application/json)
+
+        {
+            "action": "delete_sessions",
+            "user_id": 5
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
 ## Admin. Phones [/api/phones/action.php?action=get_for_accountant]
 
 ### Get phones list [GET /api/phones/action.php?action=get_for_accountant]
@@ -2303,6 +2785,75 @@ HOST: https://lk.vectoranalytics.ru/
                 }
             ]
         }
+        
+## Admin. Exceptions [/api/exceptions/action.php]
+
+### Get system exceptions [GET /api/exceptions/action.php?action=get_system_exceptions]
+
+Получаем системный чёрный список номеров телефонов
+
++ Request (application/json)
+
+        {
+            "action": "get_system_exceptions",
+            "type_id": 3
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "exceptions":[
+                {
+                    "id": 1,
+                    "type_id": 3,
+                    "phone_int": 7495123467,
+                    "dt": "2017-01-01 10:00:00"
+                }
+            ]
+        }
+        
+### Add system exception [GET /api/exceptions/action.php?action=add_system_exception]
+
+Добавить номер телефона в системный чёрный список
+
++ Request (application/json)
+
+        {
+            "action": "add_system_exception",
+            "type_id": 3
+            "phone_int": 7495123467
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "exception":
+                {
+                    "id": 1,
+                    "type_id": 3,
+                    "phone_int": 7495123467,
+                    "dt": "2017-01-01 10:00:00"
+                }
+        }
+        
+### Delete system exception [GET /api/exceptions/action.php?action=remove_system_exception]
+
+Удалить номер телефона из системного чёрного списка
+
++ Request (application/json)
+
+        {
+            "action": "remove_system_exception",
+            "id": 10
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
 
 ## User permissions [/api/users/permissions/action.php]
 
@@ -2320,21 +2871,13 @@ HOST: https://lk.vectoranalytics.ru/
 
         {
             "error": null,
-            "current_user_permission": {
-                "id": 2521,
-                "rank": 1,
-                "permission_id": 13,
-                "user": {
-                    "email": "alexey.maslov@dvigus.ru",
-                    "is_invited": true
-                }
-            },
             "accesses": [
                 {
                     "id": 2521,
                     "permission_id": 1013,
                     "rank": 1,
                     "user": {
+                        "user_id": 5,
                         "email": "alexey.maslov@dvigus.ru",
                         "is_invited": true,
                         "is_owner": false,
@@ -2682,25 +3225,259 @@ HOST: https://lk.vectoranalytics.ru/
             "error": null
         }
         
-### Import data [GET /api/import/action.php?action=load]
-Импортируем файл
+## Account [/api/user/account/action.php]
+
+### Account [GET /api/user/account/action.php?action=delete_sessions]
+
+Разлогиниться на всех устройствах
 
 + Request (application/json)
 
         {
-            "action": "load",
-            "type": "ads",
-            "site_id": "62",
-            "import_data": "file.csv",
-            "field_terminator": ";",
-            "line_terminator": "\r\n",
-            "incode": "utf8|cp1251",
-            "ignore_lines" : 1
+            "action": "delete_sessions"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null
+        }
+        
+## Apps [/api/user/app/action.php]
+
+### Get apps list [GET /api/user/app/action.php?action=get]
+
+Вывести список собственных приложений
+
++ Request (application/json)
+
+        {
+            "action": "get"
         }
         
 + Response 200 (text/javascript)
 
         {
             "error": null,
-            "imported_rows": 323232
+            "apps": [
+                {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token",
+                    "client_id": "0d07c30a399ffd893b59ca770ded0b6c",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": ""
+                }
+            ]
+        }
+        
+### Create app [GET /api/user/app/action.php?action=create]
+
+Создать собственное приложение
+
++ Request (application/json)
+
+        {
+            "action": "create",
+            "app": {
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token"
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token",
+                    "client_id": "0d07c30a399ffd893b59ca770ded0b6c",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": ""
+            }
+        }
+        
+### Save app [GET /api/user/app/action.php?action=save]
+        
+Сохранить приложение
+
++ Request (application/json)
+
+        {
+            "action": "save",
+            "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token"
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token",
+                    "client_id": "0d07c30a399ffd893b59ca770ded0b6c",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": ""
+            }
+        }
+        
+### Delete app [GET /api/user/app/action.php?action=delete]
+        
+Удалить приложение
+
++ Request (application/json)
+
+        {
+            "action": "delete",
+            "app": {
+                    "id": 1
+            }
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token",
+                    "client_id": "0d07c30a399ffd893b59ca770ded0b6c",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": "12.12.2017 19:05:29"
+            }
+        }
+        
+### Get list external apps [GET /api/user/app/external/action.php?action=get]
+        
+Получить список приложений которым предоставлен доступ
+
++ Request (application/json)
+
+        {
+            "action": "get"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "external_apps": [
+                {
+                    "id": 10,
+                    "token": "ef59f56f8431e7ce392feaee1be919b5",
+                    "app": {
+                        "id": 1,
+                        "name": "Marilyn",
+                        "description": "Система автоматизации интернет-рекламы",
+                        "app_link": "https://mymarilyn.ru/",
+                        "start_date": "12.10.2017 19:05:29",
+                        "end_date": ""
+                    }
+                }
+            ]
+        }
+        
+### Get app info [GET /api/user/app/external/action.php?action=get_by_client_id]
+
+Получить инфо по внешнему приложению
+
++ Request (application/json)
+
+        {
+            "action": "get_by_client_id",
+            "client_id": "0d07c30a399ffd893b59ca770ded0b6c"
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "callback_url": "https://mymarilyn.ru/token",
+                    "client_id": "0d07c30a399ffd893b59ca770ded0b6c",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": ""
+            }
+        }
+        
+### Grant access to external apps [GET /api/user/app/external/action.php?action=grant_access]
+        
+Предоставить доступ приложению к своим данным
+
++ Request (application/json)
+
+        {
+            "action": "grant_access",
+            "app_id": 1
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "external_app": {
+                "id": 10,
+                "token": "ef59f56f8431e7ce392feaee1be919b5",
+                "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": ""
+                }
+            }
+        }
+        
+### Delete access to external apps [GET /api/user/app/external/action.php?action=delete_access]
+        
+Закрыть доступ приложению к своим данным
+
++ Request (application/json)
+
+        {
+            "action": "delete_access",
+            "external_app_id": 10
+        }
+        
++ Response 200 (text/javascript)
+
+        {
+            "error": null,
+            "external_app": {
+                "id": 10,
+                "token": "ef59f56f8431e7ce392feaee1be919b5",
+                "app": {
+                    "id": 1,
+                    "name": "Marilyn",
+                    "description": "Система автоматизации интернет-рекламы",
+                    "app_link": "https://mymarilyn.ru/",
+                    "start_date": "12.10.2017 19:05:29",
+                    "end_date": "12.12.2017 19:05:29"
+                }
+            }
         }
